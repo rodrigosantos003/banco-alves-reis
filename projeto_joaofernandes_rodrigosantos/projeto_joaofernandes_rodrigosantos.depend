@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1637161883 source:c:\projects\ips_tpsi\afp\project\projeto_joaofernandes_rodrigosantos\main.c
+	<stdio.h>
+	<stdlib.h>
+
