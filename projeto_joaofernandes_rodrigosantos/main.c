@@ -2,19 +2,20 @@
     @name: Banco Alves dos Reis
     @description: Porgrama de gestão bancária
     @authors: João Fernandes & Rodrigo Santos
-    @last_modified: 2021-11-16
+    @last_modified: 2021-12-12
 */
 
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <locale.h>
 
 void menu(void);
 
 int main()
 {
-    printf("BANCO ALVES DOS REIS\n");
+    setlocale(LC_ALL, "");
 
+    printf("BANCO ALVES DOS REIS\n");
     menu();
 
     return 0;
@@ -29,13 +30,15 @@ void menu() {
     printf("4. Depositar dinheiro numa conta\n");
     printf("5. Levantar dinheiro de uma conta\n");
     printf("6. Transferir dinheiro entre contas\n");
-    printf("7. Editar a informacao de uma conta\n");
+    printf("7. Editar a informação de uma conta\n");
     printf("8. Eliminar uma conta\n");
     printf("9. Gravar listagem de contas para um ficheiro de texto\n\n");
     printf("10. Sair do programa\n");
 
-    printf("Escolha uma opcao do menu: ");
+    printf("Escolha uma opcão do menu: ");
     scanf("%d", &opcaoMenu);
+
+    fflush(stdin);
 
     switch(opcaoMenu){
         case 1:
