@@ -2,13 +2,20 @@
     @name: Banco Alves dos Reis
     @description: Porgrama de gestão bancária
     @authors: João Fernandes & Rodrigo Santos
-    @last_modified: 2021-12-12
+    @last_modified: 2021-12-13
 */
 
+/*----------------------------
+    BIBLIOTECAS E MÓDULOS
+------------------------------*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
+#include <conta.h>
 
+/*----------------------------
+    PRORÓTIPOS DE FUNÇÕES
+------------------------------*/
 void menu(void);
 
 int main()
@@ -21,6 +28,9 @@ int main()
     return 0;
 }
 
+/*----------------------------
+        FUNÇÕES
+------------------------------*/
 void menu() {
     int opcaoMenu;
 
@@ -64,3 +74,4 @@ void menu() {
             break;
     }
 }
+
