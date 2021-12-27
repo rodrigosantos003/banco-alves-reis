@@ -2,20 +2,14 @@
     @name: Banco Alves dos Reis
     @description: Porgrama de gestão bancária
     @authors: João Fernandes & Rodrigo Santos
-    @last_modified: 2021-12-13
+    @last_modified: 2021-12-27
 */
 
-/*----------------------------
-    BIBLIOTECAS E MÓDULOS
-------------------------------*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
-#include <conta.c>
+#include "conta.h"
 
-/*----------------------------
-    PRORÓTIPOS DE FUNÇÕES
-------------------------------*/
 void menu(void);
 
 int main()
@@ -28,11 +22,10 @@ int main()
     return 0;
 }
 
-/*----------------------------
-        FUNÇÕES
-------------------------------*/
+//função que apresenta o menu
 void menu() {
     int opcaoMenu;
+    TipoConta conta;
 
     printf("1. Abrir uma conta\n");
     printf("2. Listar contas existentes\n");
@@ -52,6 +45,7 @@ void menu() {
 
     switch(opcaoMenu){
         case 1:
+            abrirConta(&conta);
             break;
         case 2:
             break;

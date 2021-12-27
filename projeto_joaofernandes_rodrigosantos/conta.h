@@ -5,6 +5,9 @@ typedef struct {
     int numeroConta, nif;
     char nome[100];
     float saldo;
-} Conta;
+}TipoConta;
+
+void abrirConta(TipoConta *conta);
+void imprimirConta(TipoConta conta);
 
 #endif // CONTA_H_INCLUDED
