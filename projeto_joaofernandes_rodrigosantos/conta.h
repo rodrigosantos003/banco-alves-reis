@@ -2,9 +2,9 @@
 #define CONTA_H_INCLUDED
 
 typedef struct {
-    int numeroConta;
-    int nif;
-    float montanteDisponivel;
+    int numeroConta, nif;
+    char nome[100];
+    float saldo;
 } Conta;
 
 #endif // CONTA_H_INCLUDED

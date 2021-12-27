@@ -11,7 +11,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
-#include <conta.h>
+#include <conta.c>
 
 /*----------------------------
     PRORÓTIPOS DE FUNÇÕES
