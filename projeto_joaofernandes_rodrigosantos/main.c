@@ -10,23 +10,30 @@
 #include <locale.h>
 #include "conta.h"
 
-void menu(void);
+#define MAX_CONTAS 100
+
+void menu(int opcao, TipoConta contas[], int numAtualContas);
+void gravarListagemContas();
 
 int main()
 {
     setlocale(LC_ALL, "");
 
+    //declaração e variáveis
+    TipoConta contas[MAX_CONTAS];
+    int numAtualContas, opcaoMenu;
+
+    opcaoMenu = 0;
+    numAtualContas = 0;
+
     printf("BANCO ALVES DOS REIS\n");
-    menu();
+    menu(opcaoMenu, contas, numAtualContas);
 
     return 0;
 }
 
 //função que apresenta o menu
-void menu() {
-    int opcaoMenu;
-    TipoConta conta;
-
+void menu(int opcao, TipoConta contas[], int numAtualContas){
     printf("1. Abrir uma conta\n");
     printf("2. Listar contas existentes\n");
     printf("3. Consultar detalhes de uma conta\n");
@@ -39,29 +46,43 @@ void menu() {
     printf("10. Sair do programa\n");
 
     printf("Escolha uma opcão do menu: ");
-    scanf("%d", &opcaoMenu);
+    scanf("%d", &opcao);
 
     fflush(stdin);
 
-    switch(opcaoMenu){
+    switch(opcao){
         case 1:
-            abrirConta(&conta);
+            abrirConta(&contas[numAtualContas]);
+            numAtualContas++;
+            menu(opcao, contas, numAtualContas);
             break;
         case 2:
+            for(int i = 0; i < numAtualContas; i++){
+                imprimirConta(contas[i]);
+                printf("\n");
+            }
+
+            menu(opcao, contas, numAtualContas);
             break;
         case 3:
+            menu(opcao, contas, numAtualContas);
             break;
         case 4:
             break;
         case 5:
+            menu(opcao, contas, numAtualContas);
             break;
         case 6:
+            menu(opcao, contas, numAtualContas);
             break;
         case 7:
+            menu(opcao, contas, numAtualContas);
             break;
         case 8:
+            menu(opcao, contas, numAtualContas);
             break;
         case 9:
+            menu(opcao, contas, numAtualContas);
             break;
         case 10:
             exit(0);
