@@ -74,6 +74,7 @@ void operacoesMenu(int opcao, TipoConta contas[], int numAtualContas){
             operacoesMenu(opcao, contas, numAtualContas);
             break;
         case 3:
+            consultarDetalhesConta(contas, numAtualContas);
             mostrarMenu();
             operacoesMenu(opcao, contas, numAtualContas);
             break;

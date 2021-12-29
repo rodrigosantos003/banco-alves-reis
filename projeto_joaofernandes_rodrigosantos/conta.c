@@ -69,7 +69,7 @@ void imprimirConta(TipoConta conta){
     else
         printf("Modalidade: Isenta\n");
 
-    printf("Saldo: %.2f€\n", conta.saldo);
+    printf("Saldo: %.2f €\n", conta.saldo);
 
     printf("Histórico (útlimos 3 movimentos)\n");
     for(int i = 0; i < 3; i++){
@@ -80,4 +80,20 @@ void imprimirConta(TipoConta conta){
     printf("Data de abertura: %d/%d/%d\n", conta.data.dia, conta.data.mes, conta.data.ano);
 
     printf("----------------\n");
+}
+
+//função para conuslta dos detalhes de uma conta (dado o resdpetivo número)
+void consultarDetalhesConta(TipoConta contas[], int numAtualContas){
+    int numContaConsultar = 0;
+
+    printf("Introduza o número de conta para consultar os detalhes: ");
+    scanf("%d", &numContaConsultar);
+
+    fflush(stdin);
+
+    for(int i = 0; i < numAtualContas; i++){
+        if(contas[i].numero == numContaConsultar){
+            imprimirConta(contas[i]);
+        }
+    }
 }
