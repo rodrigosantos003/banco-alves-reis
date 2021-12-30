@@ -2,7 +2,7 @@
     @name: Banco Alves dos Reis
     @description: Porgrama de gestão bancária
     @authors: João Fernandes & Rodrigo Santos
-    @last_modified: 2021-12-28
+    @last_modified: 2021-12-30
 */
 
 #include <stdio.h>
@@ -53,6 +53,8 @@ void mostrarMenu()
 
 //função que executa as operações do menu (dada a respetiva opção)
 void operacoesMenu(int opcao, TipoConta contas[], int numAtualContas){
+    char sair;
+
     printf("Escolha uma opcão do menu: ");
     scanf("%d", &opcao);
     fflush(stdin);
@@ -101,11 +103,23 @@ void operacoesMenu(int opcao, TipoConta contas[], int numAtualContas){
             operacoesMenu(opcao, contas, numAtualContas);
             break;
         case 10:
-            exit(0);
+            printf("Deseja sair do programa (S/N)? ");
+            scanf("%c", &sair);
+
+            if(sair == 's' || sair == 'S')
+                exit(0);
+            else if(sair == 'n' || sair == 'N'){
+                mostrarMenu();
+                operacoesMenu(opcao, contas, numAtualContas);
+            }
+            else{
+                printf("ERRO: Resposta inválida!");
+                mostrarMenu();
+                operacoesMenu(opcao, contas, numAtualContas);
+            }
             break;
         default:
             printf("ERRO: A opção escolhida não existe! Tente novamente\n");
             operacoesMenu(opcao, contas, numAtualContas);
     }
 }
-

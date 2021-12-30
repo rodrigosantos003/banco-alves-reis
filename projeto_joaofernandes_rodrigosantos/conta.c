@@ -5,6 +5,8 @@
 
 //função para abertura de conta
 void abrirConta(TipoConta *conta){
+    int numDigitos = 0;
+
     printf("INTRODUZA OS DADOS DA CONTA:\n");
 
     //leitura do número de conta
@@ -58,10 +60,11 @@ void imprimirConta(TipoConta conta){
 
     printf("Número: %d\n", conta.numero);
 
+    printf("TITULARES\n");
     for(int i = 0; i < conta.totalTitulares; i++){
-        printf("TITULAR %d\n", i+1);
-        printf("Nome: %-25s\n", conta.titulares[i].nome);
-        printf("NIF: %d\n", conta.titulares[i].nif);
+        printf("Titular %d: ", i+1);
+        printf("| Nome: %-25s ", conta.titulares[i].nome);
+        printf("| NIF: %d\n", conta.titulares[i].nif);
     }
 
     if(conta.modalidade == 0)
@@ -69,7 +72,7 @@ void imprimirConta(TipoConta conta){
     else
         printf("Modalidade: Isenta\n");
 
-    printf("Saldo: %.2f €\n", conta.saldo);
+    printf("Saldo: %.2f EUR \n", conta.saldo);
 
     printf("Histórico (útlimos 3 movimentos)\n");
     for(int i = 0; i < 3; i++){
@@ -95,5 +98,7 @@ void consultarDetalhesConta(TipoConta contas[], int numAtualContas){
         if(contas[i].numero == numContaConsultar){
             imprimirConta(contas[i]);
         }
+        else
+            printf("A conta não existe!\n");
     }
 }
