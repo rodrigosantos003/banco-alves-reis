@@ -54,6 +54,9 @@ void mostrarMenu()
 //função que executa as operações do menu (dada a respetiva opção)
 void operacoesMenu(int opcao, TipoConta contas[], int numAtualContas){
     char sair;
+    int contaOrigem, contaDestino;
+
+    contaOrigem = contaDestino = 0;
 
     printf("Escolha uma opcão do menu: ");
     scanf("%d", &opcao);
@@ -76,22 +79,43 @@ void operacoesMenu(int opcao, TipoConta contas[], int numAtualContas){
             operacoesMenu(opcao, contas, numAtualContas);
             break;
         case 3: /*consulta dos detalhes de uma conta*/
-            consultarDetalhesConta(contas, numAtualContas);
+            do{
+                contaOrigem = lerNumConta(contas, numAtualContas);
+            }while(contaOrigem == -1);
+
+            imprimirConta(contas[contaOrigem]);
+
             mostrarMenu();
             operacoesMenu(opcao, contas, numAtualContas);
             break;
         case 4: /*depósito de dinheiro*/
-            depositarDinheiro(&contas[0]);
+            do{
+                contaOrigem = lerNumConta(contas, numAtualContas);
+            }while(contaOrigem == -1);
+
+            depositarDinheiro(&contas[contaOrigem]);
+
             mostrarMenu();
             operacoesMenu(opcao, contas, numAtualContas);
             break;
         case 5: /*levantamento de dinheiro*/
-            levantarDinheiro(&contas[0]);
+            do{
+                contaOrigem = lerNumConta(contas, numAtualContas);
+            }while(contaOrigem == -1);
+
+            levantarDinheiro(&contas[contaOrigem]);
+
             mostrarMenu();
             operacoesMenu(opcao, contas, numAtualContas);
             break;
         case 6: /*transferência de dinheiro*/
-            transferirDinheiro(&contas[0], &contas[1]);
+            do{
+                contaOrigem = lerNumConta(contas, numAtualContas);
+                contaDestino = lerNumConta(contas, numAtualContas);
+            }while(contaOrigem == -1 || contaDestino == -1);
+
+            transferirDinheiro(&contas[contaOrigem], &contas[contaDestino]);
+
             mostrarMenu();
             operacoesMenu(opcao, contas, numAtualContas);
             break;

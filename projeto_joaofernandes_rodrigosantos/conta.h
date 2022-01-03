@@ -28,9 +28,9 @@ typedef struct{
 }TipoConta;
 
 //protótipos de funções
+int lerNumConta(TipoConta contas[], int numAtualContas);
 void abrirConta(TipoConta *conta);
 void imprimirConta(TipoConta conta);
-void consultarDetalhesConta(TipoConta contas[], int numAtualContas);
 void depositarDinheiro(TipoConta *conta);
 void levantarDinheiro(TipoConta *conta);
 void transferirDinheiro(TipoConta *contaOrigem, TipoConta *contaDestino);

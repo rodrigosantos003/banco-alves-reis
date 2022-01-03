@@ -3,6 +3,24 @@
 #include <locale.h>
 #include "conta.h"
 
+//função para leitura do número de conta e verificação da sua existência
+int lerNumConta(TipoConta contas[], int numAtualContas){
+    int numConta = 0;
+
+    printf("Introduza o número de conta: ");
+    scanf("%d", &numConta);
+    fflush(stdin);
+
+    for(int i = 0; i < numAtualContas; i++){
+        if(contas[i].numero == numConta)
+            return i;
+        else{
+            printf("A conta não existe!\n");
+            return -1;
+        }
+    }
+}
+
 //função para abertura de conta
 void abrirConta(TipoConta *conta){
     printf("INTRODUZA OS DADOS DA CONTA:\n");
@@ -42,7 +60,7 @@ void abrirConta(TipoConta *conta){
         scanf("%f", &conta->saldo);
 
         if(conta->saldo < 150)
-            printf("O saldo inicial deve ser igual ou superior a 150€!\n");
+            printf("O saldo inicial deve ser igual ou superior a 150 EUR!\n");
     } while(conta->saldo < 150);
     fflush(stdin);
 
@@ -78,27 +96,9 @@ void imprimirConta(TipoConta conta){
         printf("Valor: %.2f\n", conta.historico[i].valor);
     }
 
-    printf("Data de abertura: %d/%d/%d\n", conta.data.dia, conta.data.mes, conta.data.ano);
+    printf("Data de abertura: %02d/%02d/%4d\n", conta.data.dia, conta.data.mes, conta.data.ano);
 
     printf("----------------\n");
-}
-
-//função para conuslta dos detalhes de uma conta (dado o respetivo número)
-void consultarDetalhesConta(TipoConta contas[], int numAtualContas){
-    int numContaConsultar = 0;
-
-    printf("Introduza o número de conta para consultar os detalhes: ");
-    scanf("%d", &numContaConsultar);
-
-    fflush(stdin);
-
-    for(int i = 0; i < numAtualContas; i++){
-        if(contas[i].numero == numContaConsultar){
-            imprimirConta(contas[i]);
-        }
-        else
-            printf("A conta não existe!\n");
-    }
 }
 
 //função para depósito de dinheiro numa conta
