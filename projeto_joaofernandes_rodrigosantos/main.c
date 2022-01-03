@@ -54,6 +54,7 @@ void mostrarMenu()
 //função que executa as operações do menu (dada a respetiva opção)
 void operacoesMenu(int opcao, TipoConta contas[], int numAtualContas){
     char sair;
+    int numConta, numContaDestino;
 
     printf("Escolha uma opcão do menu: ");
     scanf("%d", &opcao);
@@ -76,22 +77,35 @@ void operacoesMenu(int opcao, TipoConta contas[], int numAtualContas){
             operacoesMenu(opcao, contas, numAtualContas);
             break;
         case 3: /*consulta dos detalhes de uma conta*/
-            consultarDetalhesConta(contas, numAtualContas);
+            lerNumConta(&numConta, contas, numAtualContas);
+            if(numConta != -1)
+                imprimirConta(contas[numConta]);
+
             mostrarMenu();
             operacoesMenu(opcao, contas, numAtualContas);
             break;
         case 4: /*depósito de dinheiro*/
-            depositarDinheiro(&contas[0]);
+            lerNumConta(&numConta, contas, numAtualContas);
+            if(numConta != -1)
+                depositarDinheiro(&contas[numConta]);
+
             mostrarMenu();
             operacoesMenu(opcao, contas, numAtualContas);
             break;
         case 5: /*levantamento de dinheiro*/
-            levantarDinheiro(&contas[0]);
+            lerNumConta(&numConta, contas, numAtualContas);
+            if(numConta != -1)
+                levantarDinheiro(&contas[numConta]);
+
             mostrarMenu();
             operacoesMenu(opcao, contas, numAtualContas);
             break;
         case 6: /*transferência de dinheiro*/
-            transferirDinheiro(&contas[0], &contas[1]);
+            lerNumConta(&numConta, contas, numAtualContas);
+            lerNumConta(&numContaDestino, contas, numAtualContas);
+            if(numConta != -1)
+                transferirDinheiro(&contas[numConta], &contas[numContaDestino]);
+
             mostrarMenu();
             operacoesMenu(opcao, contas, numAtualContas);
             break;
