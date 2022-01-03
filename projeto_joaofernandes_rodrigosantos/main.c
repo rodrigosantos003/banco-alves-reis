@@ -2,7 +2,7 @@
     @name: Banco Alves dos Reis
     @description: Porgrama de gestão bancária
     @authors: João Fernandes & Rodrigo Santos
-    @last_modified: 2021-12-30
+    @last_modified: 2021-01-03
 */
 
 #include <stdio.h>
@@ -60,13 +60,13 @@ void operacoesMenu(int opcao, TipoConta contas[], int numAtualContas){
     fflush(stdin);
 
     switch(opcao){
-        case 1:
+        case 1: /*abertura de conta*/
             abrirConta(&contas[numAtualContas]);
             numAtualContas++;
             mostrarMenu();
             operacoesMenu(opcao, contas, numAtualContas);
             break;
-        case 2:
+        case 2: /*listagem de todas as contas*/
             for(int i = 0; i < numAtualContas; i++){
                 imprimirConta(contas[i]);
                 printf("\n");
@@ -75,34 +75,39 @@ void operacoesMenu(int opcao, TipoConta contas[], int numAtualContas){
             mostrarMenu();
             operacoesMenu(opcao, contas, numAtualContas);
             break;
-        case 3:
+        case 3: /*consulta dos detalhes de uma conta*/
             consultarDetalhesConta(contas, numAtualContas);
             mostrarMenu();
             operacoesMenu(opcao, contas, numAtualContas);
             break;
-        case 4:
-            break;
-        case 5:
+        case 4: /*depósito de dinheiro*/
+            depositarDinheiro(&contas[0]);
             mostrarMenu();
             operacoesMenu(opcao, contas, numAtualContas);
             break;
-        case 6:
+        case 5: /*levantamento de dinheiro*/
+            levantarDinheiro(&contas[0]);
             mostrarMenu();
             operacoesMenu(opcao, contas, numAtualContas);
             break;
-        case 7:
+        case 6: /*transferência de dinheiro*/
+            transferirDinheiro(&contas[0], &contas[1]);
             mostrarMenu();
             operacoesMenu(opcao, contas, numAtualContas);
             break;
-        case 8:
+        case 7: /*edição de informações de conta*/
             mostrarMenu();
             operacoesMenu(opcao, contas, numAtualContas);
             break;
-        case 9:
+        case 8: /*eliminação de conta*/
             mostrarMenu();
             operacoesMenu(opcao, contas, numAtualContas);
             break;
-        case 10:
+        case 9: /*eliminação de conta*/
+            mostrarMenu();
+            operacoesMenu(opcao, contas, numAtualContas);
+            break;
+        case 10: /*saída do programa*/
             printf("Deseja sair do programa (S/N)? ");
             scanf("%c", &sair);
 
@@ -118,7 +123,7 @@ void operacoesMenu(int opcao, TipoConta contas[], int numAtualContas){
                 operacoesMenu(opcao, contas, numAtualContas);
             }
             break;
-        default:
+        default: /*opção do menu não existente*/
             printf("ERRO: A opção escolhida não existe! Tente novamente\n");
             operacoesMenu(opcao, contas, numAtualContas);
     }

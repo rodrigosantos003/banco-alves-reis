@@ -33,7 +33,7 @@ void imprimirConta(TipoConta conta);
 void consultarDetalhesConta(TipoConta contas[], int numAtualContas);
 void depositarDinheiro(TipoConta *conta);
 void levantarDinheiro(TipoConta *conta);
-void transferirDinheiro(TipoConta contaOrigem, TipoConta contaDestino);
+void transferirDinheiro(TipoConta *contaOrigem, TipoConta *contaDestino);
 void editarDetalhesConta(TipoConta *conta);
 void elimiarConta(TipoConta conta);
 

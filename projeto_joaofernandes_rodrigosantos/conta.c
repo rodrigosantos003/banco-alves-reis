@@ -5,8 +5,6 @@
 
 //função para abertura de conta
 void abrirConta(TipoConta *conta){
-    int numDigitos = 0;
-
     printf("INTRODUZA OS DADOS DA CONTA:\n");
 
     //leitura do número de conta
@@ -85,7 +83,7 @@ void imprimirConta(TipoConta conta){
     printf("----------------\n");
 }
 
-//função para conuslta dos detalhes de uma conta (dado o resdpetivo número)
+//função para conuslta dos detalhes de uma conta (dado o respetivo número)
 void consultarDetalhesConta(TipoConta contas[], int numAtualContas){
     int numContaConsultar = 0;
 
@@ -100,5 +98,48 @@ void consultarDetalhesConta(TipoConta contas[], int numAtualContas){
         }
         else
             printf("A conta não existe!\n");
+    }
+}
+
+//função para depósito de dinheiro numa conta
+void depositarDinheiro(TipoConta *conta){
+    float montante = 0.0;
+
+    printf("Introduza a montante a depositar na conta > ");
+    scanf("%f", &montante);
+
+    conta->saldo += montante;
+}
+
+//função para levantamento de dinheiro de uma conta
+void levantarDinheiro(TipoConta *conta){
+    float montante = 0.0;
+
+    printf("Introduza a montante que pretente levantar da conta > ");
+    scanf("%f", &montante);
+
+    if(montante > conta->saldo){
+        printf("\nERRO: SALDO INSUFICIENTE");
+    }
+    else if(montante > 0){
+        conta->saldo -= montante;
+        printf("\nMontante levantada com sucesso (%f)", montante);
+    }
+}
+
+//função para transferência de dinheiro numa conta
+void transferirDinheiro(TipoConta *contaOrigem, TipoConta *contaDestino){
+    float montante = 0.0;
+
+    printf("Introduza a montante que pretente transferir da conta origem > ");
+    scanf("%f", &montante);
+
+    if(montante > contaOrigem->saldo){
+        printf("\nERRO: SALDO INSUFICIENTE");
+    }
+    else if(montante > 0){
+        contaOrigem->saldo -= montante;
+        contaDestino->saldo += montante;
+        printf("\nMontante transferida com sucesso (%f)", montante);
     }
 }
