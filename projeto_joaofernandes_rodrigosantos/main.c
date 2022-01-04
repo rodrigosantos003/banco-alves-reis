@@ -52,7 +52,7 @@ void mostrarMenu()
 
 //função que executa as operações do menu (dada a respetiva opção)
 void operacoesMenu(int opcao, TipoConta contas[], int numAtualContas){
-    char sair;
+    char listagem, sair;
     int contaOrigem, contaDestino;
 
     contaOrigem = contaDestino = 0;
@@ -69,10 +69,15 @@ void operacoesMenu(int opcao, TipoConta contas[], int numAtualContas){
             operacoesMenu(opcao, contas, numAtualContas);
             break;
         case 2: /*listagem de todas as contas*/
-            for(int i = 0; i < numAtualContas; i++){
-                imprimirConta(contas[i]);
-                printf("\n");
-            }
+            printf("Listar todas as contas registadas (T) ou contas de um determinado cliente (C)? ");
+            scanf("%c", &listagem);
+
+            if(listagem == 'T' || listagem == 't')
+                listarTodasContas(contas, numAtualContas);
+            else if(listagem == 'C' || listagem == 'c')
+                listarContasCliente(contas, numAtualContas);
+            else
+                printf("ERRO: Opção inválida!");
 
             mostrarMenu();
             operacoesMenu(opcao, contas, numAtualContas);

@@ -102,6 +102,28 @@ void imprimirConta(TipoConta conta){
     printf("----------------\n");
 }
 
+void listarTodasContas(TipoConta contas[], int numAtualContas){
+    for(int i = 0; i < numAtualContas; i++){
+        imprimirConta(contas[i]);
+        printf("\n");
+    }
+}
+
+void listarContasCliente(TipoConta contas[], int numAtualContas){
+    int nif;
+    printf("Introduza o NIF a consultar: ");
+    scanf("%d", &nif);
+
+    for(int i = 0; i < numAtualContas; i++){
+        for(int x = 0; x < contas[i].totalTitulares; x++){
+            if(contas[i].titulares[x].nif == nif){
+                    imprimirConta(contas[i]);
+                    printf("\n");
+            }
+        }
+    }
+}
+
 //função para verificação de saldo suficiente
 int verificarSaldoConta(TipoConta *conta, float montante){
     if(conta->saldo > montante) return 1;
