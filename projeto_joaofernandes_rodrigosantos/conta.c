@@ -27,30 +27,44 @@ int lerNumConta(TipoConta contas[], int numAtualContas){
 }
 
 //função para abertura de conta
-void abrirConta(TipoConta *conta){
+void abrirConta(TipoConta *conta, int numAtualContas){
+    int num, quantidadeDigitos;
+    num = quantidadeDigitos = 0;
+
     printf("INTRODUZA OS DADOS DA CONTA:\n");
 
-    //leitura do número de conta
-    do{
-        printf("Número > ");
-        scanf("%d", &conta->numero);
-
-        if(conta->numero <= 0)
-            printf("\nERRO: O número de conta deve ser superior a 0!");
-    }while(conta->numero <= 0);
-    fflush(stdin);
+    //atribuição do número de conta
+    conta->numero = numAtualContas + 1;
 
     //leitura do número de titulares
-    printf("Nº de titulares > ");
-    scanf("%d", &conta->totalTitulares);
+    do{
+        printf("Nº de titulares > ");
+        scanf("%d", &conta->totalTitulares);
+
+        if(conta->totalTitulares > 5)
+            printf("\nERRO: A conta deve ter até 5 titulares!");
+    }while(conta->totalTitulares > 5);
     fflush(stdin);
 
     //leitura dos dados dos titulares
     for(int i = 0; i < conta->totalTitulares; i++){
         printf("TITULAR %d\n", i+1);
 
-        printf("NIF > ");
-        scanf("%d", &conta->titulares[i].nif);
+        do{
+            printf("NIF > ");
+            scanf("%d", &conta->titulares[i].nif);
+
+            num = conta->titulares[i].nif;
+            quantidadeDigitos = 0;
+            do {
+                num /= 10;
+                quantidadeDigitos++;
+            }while (num != 0);
+
+            if(quantidadeDigitos != 9)
+                printf("\nERRO: O NIF deve ter 9 dígitos!\n");
+        }while(quantidadeDigitos != 9);
+
 
         getchar();
 

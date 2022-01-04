@@ -65,8 +65,12 @@ void operacoesMenu(int opcao, TipoConta contas[], int numAtualContas){
     //verificação da opção e execução das respetivas operações
     switch(opcao){
         case 1: /*abertura de conta*/
-            abrirConta(&contas[numAtualContas]);
-            numAtualContas++;
+            if(numAtualContas < MAX_CONTAS){
+                abrirConta(&contas[numAtualContas], numAtualContas);
+                numAtualContas++;
+            }
+            else
+                printf("\nERRO: Não é possível abrir mais contas!\n");
 
             mostrarMenu();
             operacoesMenu(opcao, contas, numAtualContas);

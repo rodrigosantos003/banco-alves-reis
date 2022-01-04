@@ -32,7 +32,7 @@ int lerNumConta(TipoConta contas[], int numAtualContas);
 void listarTodasContas(TipoConta contas[], int numAtualContas);
 void listarContasCliente(TipoConta contas[], int numAtualContas);
 int verificarSaldoConta(TipoConta *conta, float montante);
-void abrirConta(TipoConta *conta);
+void abrirConta(TipoConta *conta, int numAtualContas);
 void imprimirConta(TipoConta conta);
 void depositarDinheiro(TipoConta *conta);
 void levantarDinheiro(TipoConta *conta);
