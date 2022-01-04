@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
+#include <string.h>
 #include "conta.h"
 
 //função para leitura do número de conta e verificação da sua existência
@@ -90,7 +91,7 @@ void imprimirConta(TipoConta conta){
 
     printf("Saldo: %.2f EUR \n", conta.saldo);
 
-    printf("Histórico (útlimos 3 movimentos)\n");
+    printf("Histórico (últimos 3 movimentos)\n");
     for(int i = 0; i < 3; i++){
         printf("Descrição: %s | ", conta.historico[i].descricao);
         printf("Valor: %.2f\n", conta.historico[i].valor);
@@ -101,6 +102,12 @@ void imprimirConta(TipoConta conta){
     printf("----------------\n");
 }
 
+//função para verificação de saldo suficiente
+int verificarSaldoConta(TipoConta *conta, float montante){
+    if(conta->saldo > montante) return 1;
+    return 0;
+}
+
 //função para depósito de dinheiro numa conta
 void depositarDinheiro(TipoConta *conta){
     float montante = 0.0;
@@ -109,37 +116,80 @@ void depositarDinheiro(TipoConta *conta){
     scanf("%f", &montante);
 
     conta->saldo += montante;
+
+    atualizarHistorico(conta, montante, "Depósito");
 }
 
 //função para levantamento de dinheiro de uma conta
 void levantarDinheiro(TipoConta *conta){
     float montante = 0.0;
+    int saldoSuficiente;
 
     printf("Introduza a montante que pretente levantar da conta > ");
     scanf("%f", &montante);
 
-    if(montante > conta->saldo){
-        printf("\nERRO: SALDO INSUFICIENTE");
+    if(conta->modalidade == normal){
+        saldoSuficiente = verificarSaldoConta(conta, montante + 5);
+
+        if(saldoSuficiente == 1){
+            conta->saldo -= montante + 5;
+            printf("\nMontante levantada com sucesso (%.2f)\n", montante);
+        } else printf("\nERRO: SALDO INSUFICIENTE");
     }
-    else if(montante > 0){
-        conta->saldo -= montante;
-        printf("\nMontante levantada com sucesso (%f)", montante);
+    else{
+        saldoSuficiente = verificarSaldoConta(conta, montante);
+        if(saldoSuficiente == 1){
+            conta->saldo -= montante;
+            printf("\nMontante levantada com sucesso (%.2f)\n", montante);
+        } else printf("\nERRO: SALDO INSUFICIENTE");
+
     }
+
+    atualizarHistorico(conta, montante, "Levantamento");
 }
 
 //função para transferência de dinheiro numa conta
 void transferirDinheiro(TipoConta *contaOrigem, TipoConta *contaDestino){
     float montante = 0.0;
+    int saldoSuficiente;
 
     printf("Introduza a montante que pretente transferir da conta origem > ");
     scanf("%f", &montante);
 
-    if(montante > contaOrigem->saldo){
-        printf("\nERRO: SALDO INSUFICIENTE");
+    if(contaOrigem->modalidade == normal){
+        saldoSuficiente = verificarSaldoConta(&contaOrigem, montante + 5);
+
+        if(saldoSuficiente == 1){
+            if(montante > 0){
+                contaOrigem->saldo -= montante + 5;
+                contaDestino->saldo += montante;
+                printf("\nMontante transferido com sucesso (%.2f)\n", montante);
+            } else printf("O montante tem de ser superior a 0!");
+        } else printf("\nERRO: SALDO INSUFICIENTE");
     }
-    else if(montante > 0){
-        contaOrigem->saldo -= montante;
-        contaDestino->saldo += montante;
-        printf("\nMontante transferida com sucesso (%f)", montante);
+    else{
+        saldoSuficiente = verificarSaldoConta(&contaOrigem, montante);
+
+        if(saldoSuficiente == 1){
+            contaOrigem->saldo -= montante;
+            contaDestino->saldo += montante;
+            printf("\nMontante levantada com sucesso (%.2f)\n", montante);
+        } else printf("\nERRO: SALDO INSUFICIENTE");
+
     }
+
+    atualizarHistorico(contaOrigem, montante, "Envio de dinheiro por transferência");
+    atualizarHistorico(contaDestino, montante, "Receção de dinheiro por transferência");
+}
+
+//função para atualização do histórico
+void atualizarHistorico(TipoConta *conta, float valor, char descricao[101]){
+    strcpy(conta->historico[2].descricao, conta->historico[1].descricao);
+    conta->historico[2].valor = conta->historico[1].valor;
+
+    strcpy(conta->historico[1].descricao, conta->historico[0].descricao);
+    conta->historico[1].valor = conta->historico[0].valor;
+
+    strcpy(conta->historico[0].descricao, descricao);
+    conta->historico[0].valor = valor;
 }

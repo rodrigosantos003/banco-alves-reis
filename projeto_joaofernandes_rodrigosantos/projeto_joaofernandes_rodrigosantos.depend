@@ -3,17 +3,18 @@
 	<stdio.h>
 	<stdlib.h>
 
-1641219578 source:c:\projects\ips- tpsi\afp-project\projeto_joaofernandes_rodrigosantos\main.c
+1641293163 source:c:\projects\ips- tpsi\afp-project\projeto_joaofernandes_rodrigosantos\main.c
 	<stdio.h>
 	<stdlib.h>
 	<locale.h>
 	"conta.h"
 
-1641219852 c:\projects\ips- tpsi\afp-project\projeto_joaofernandes_rodrigosantos\conta.h
+1641295023 c:\projects\ips- tpsi\afp-project\projeto_joaofernandes_rodrigosantos\conta.h
 
-1641219867 source:c:\projects\ips- tpsi\afp-project\projeto_joaofernandes_rodrigosantos\conta.c
+1641297155 source:c:\projects\ips- tpsi\afp-project\projeto_joaofernandes_rodrigosantos\conta.c
 	<stdio.h>
 	<stdlib.h>
 	<locale.h>
+	<string.h>
 	"conta.h"
 

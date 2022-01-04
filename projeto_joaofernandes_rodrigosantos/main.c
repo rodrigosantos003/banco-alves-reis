@@ -14,7 +14,6 @@
 
 void mostrarMenu(void);
 void operacoesMenu(int opcao, TipoConta contas[], int numAtualContas);
-void gravarListagemContas();
 
 int main()
 {
