@@ -138,7 +138,7 @@ void imprimirConta(TipoConta conta){
     printf("----------------\n");
 }
 
-//função para listar todas as contas registadads
+//função para listar todas as contas registadas
 void listarTodasContas(TipoConta contas[], int numAtualContas){
     //iteração para escrita de todas as contas existentes
     for(int i = 0; i < numAtualContas; i++){
