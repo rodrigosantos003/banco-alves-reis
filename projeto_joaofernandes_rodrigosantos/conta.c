@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <locale.h>
 #include <string.h>
+#include <time.h>
 #include "conta.h"
 
 //função para leitura do número de conta e verificação da sua existência
@@ -18,18 +19,23 @@ int lerNumConta(TipoConta contas[], int numAtualContas){
         //se a conta existir é retornada a sua posição no array
         if(contas[i].numero == numConta)
             return i;
-        //senão é escrito no ecrã que a conta não existe e é retornado o valor de "erro" (i.e -1)
+        //senão é escrito no ecrã que a conta não existe e é um erro
         else{
-            printf("A conta não existe!\n");
-            return -1;
+            printf("\nERRO: A conta não existe!\n");
         }
     }
+
+    return -1;
 }
 
 //função para abertura de conta
 void abrirConta(TipoConta *conta, int numAtualContas){
     int num, quantidadeDigitos;
     num = quantidadeDigitos = 0;
+
+    time_t t;
+    t = time(NULL);
+    struct tm tm = *localtime(&t); /*retorna os valores da data local*/
 
     printf("INTRODUZA OS DADOS DA CONTA:\n");
 
@@ -88,10 +94,10 @@ void abrirConta(TipoConta *conta, int numAtualContas){
     } while(conta->saldo < 150);
     fflush(stdin);
 
-    //leitura da data de abertura
-    printf("Data de Abertura (dia/mes/ano) > ");
-    scanf("%d/%d/%d", &conta->data.dia, &conta->data.mes, &conta->data.ano);
-    fflush(stdin);
+    //atribuição da data de abertura (através da data local)
+    conta->data.dia = tm.tm_mday;
+    conta->data.mes = tm.tm_mon+1;
+    conta->data.ano = tm.tm_year+1900;
 }
 
 //função que escreve os detalhes de uma conta
