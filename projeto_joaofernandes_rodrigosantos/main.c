@@ -2,7 +2,7 @@
     @name: Banco Alves dos Reis
     @description: Porgrama de gestão bancária
     @authors: João Fernandes & Rodrigo Santos
-    @last_modified: 2021-01-04
+    @last_modified: 2021-01-05
 */
 
 #include <stdio.h>
@@ -19,7 +19,7 @@ int main()
 {
     setlocale(LC_ALL, "");
 
-    //declaração e variáveis
+    //declaração de variáveis
     TipoConta contas[MAX_CONTAS];
     int numAtualContas, opcaoMenu;
 
@@ -153,7 +153,7 @@ void operacoesMenu(int opcao, TipoConta contas[], int numAtualContas){
                 operacoesMenu(opcao, contas, numAtualContas);
             }
             else{
-                printf("ERRO: Resposta inválida!");
+                printf("\nERRO: Resposta inválida!\n");
                 mostrarMenu();
                 operacoesMenu(opcao, contas, numAtualContas);
             }

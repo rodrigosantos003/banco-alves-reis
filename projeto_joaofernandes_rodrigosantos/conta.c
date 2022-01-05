@@ -49,7 +49,9 @@ void abrirConta(TipoConta *conta, int numAtualContas){
 
         if(conta->totalTitulares > 5)
             printf("\nERRO: A conta deve ter até 5 titulares!");
-    }while(conta->totalTitulares > 5);
+        else if(conta->totalTitulares < 0)
+            printf("\nERRO: O número de titulares deve ser um número positivo");
+    }while(conta->totalTitulares > 5 || conta->titulares < 0);
     fflush(stdin);
 
     //leitura dos dados dos titulares
@@ -80,11 +82,16 @@ void abrirConta(TipoConta *conta, int numAtualContas){
     fflush(stdin);
 
     //leitura da modalidade
-    printf("Modalidade da Conta (Normal:0 / Isenta:1) > ");
-    scanf("%u", &conta->modalidade);
+    do{
+        printf("Modalidade da Conta (Normal:0 / Isenta:1) > ");
+        scanf("%u", &conta->modalidade);
+
+        if(conta->modalidade != 0 || conta->modalidade != 1)
+            printf("\nERRO: A modalidade deve ser 0 ou 1, Normal ou Isenta resptivamnete!\n");
+    }while(conta->modalidade != 0 || conta->modalidade != 1);
     fflush(stdin);
 
-    //leitura do montante inicial
+    //leitura do saldo inicial
     do{
         printf("Saldo > ");
         scanf("%f", &conta->saldo);
