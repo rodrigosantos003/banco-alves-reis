@@ -94,7 +94,7 @@ void operacoesMenu(int opcao, TipoConta contas[], int numAtualContas){
                 contaOrigem = lerNumConta(contas, numAtualContas);
             }while(contaOrigem == -1);
 
-            imprimirConta(contas[contaOrigem]);
+            imprimirConta(contas[2-1]);
 
             mostrarMenu();
             operacoesMenu(opcao, contas, numAtualContas);

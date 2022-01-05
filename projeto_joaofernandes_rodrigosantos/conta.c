@@ -17,15 +17,15 @@ int lerNumConta(TipoConta contas[], int numAtualContas){
     //iteração para verificação da existência da conta
     for(int i = 0; i < numAtualContas; i++){
         //se a conta existir é retornada a sua posição no array
-        if(contas[i].numero == numConta)
+        if(contas[i].numero){
             return i;
-        //senão é escrito no ecrã que a conta não existe e é um erro
+        }
+        //senão é escrito no ecrã que a conta não existe e é retornado o valor de "erro" (i.e -1)
         else{
-            printf("\nERRO: A conta não existe!\n");
+            printf("A conta não existe!\n");
+            return -1;
         }
     }
-
-    return -1;
 }
 
 //função para abertura de conta
@@ -86,9 +86,9 @@ void abrirConta(TipoConta *conta, int numAtualContas){
         printf("Modalidade da Conta (Normal:0 / Isenta:1) > ");
         scanf("%u", &conta->modalidade);
 
-        if(conta->modalidade != 0 || conta->modalidade != 1)
-            printf("\nERRO: A modalidade deve ser 0 ou 1, Normal ou Isenta resptivamnete!\n");
-    }while(conta->modalidade != 0 || conta->modalidade != 1);
+        if(conta->modalidade < 0 || conta->modalidade > 1)
+            printf("\nERRO: A modalidade deve ser 0 ou 1, Normal ou Isenta respetivamente!\n");
+    }while(conta->modalidade < 0 || conta->modalidade > 1);
     fflush(stdin);
 
     //leitura do saldo inicial
