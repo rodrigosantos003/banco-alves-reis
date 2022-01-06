@@ -46,7 +46,7 @@ void mostrarMenu()
     printf("6. Transferir dinheiro entre contas\n");
     printf("7. Editar a informação de uma conta\n");
     printf("8. Eliminar uma conta\n");
-    printf("9. Gravar listagem de contas para um ficheiro de texto\n\n");
+    printf("9. Gravar listagem de contas para um ficheiro de texto\n");
     printf("10. Sair do programa\n");
 }
 
@@ -94,7 +94,7 @@ void operacoesMenu(int opcao, TipoConta contas[], int numAtualContas){
                 contaOrigem = lerNumConta(contas, numAtualContas);
             }while(contaOrigem == -1);
 
-            imprimirConta(contas[2-1]);
+            imprimirConta(contas[contaOrigem]);
 
             mostrarMenu();
             operacoesMenu(opcao, contas, numAtualContas);

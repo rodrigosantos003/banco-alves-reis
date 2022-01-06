@@ -20,12 +20,10 @@ int lerNumConta(TipoConta contas[], int numAtualContas){
         if(contas[i].numero == numConta){
             return i;
         }
-        //senão é escrito no ecrã que a conta não existe e é retornado o valor de "erro" (i.e -1)
-        else{
-            printf("A conta não existe!\n");
-            return -1;
-        }
     }
+    //senão é escrito no ecrã que a conta não existe e é retornado o valor de "erro" (i.e -1)
+    printf("\nERRO:A conta não existe!\n");
+    return -1;
 }
 
 //função para abertura de conta
@@ -48,10 +46,10 @@ void abrirConta(TipoConta *conta, int numAtualContas){
         scanf("%d", &conta->totalTitulares);
 
         if(conta->totalTitulares > 5)
-            printf("\nERRO: A conta deve ter até 5 titulares!");
-        else if(conta->totalTitulares < 0)
-            printf("\nERRO: O número de titulares deve ser um número positivo");
-    }while(conta->totalTitulares > 5 || conta->titulares < 0);
+            printf("\nERRO: A conta deve ter até 5 titulares!\n");
+        else if(conta->totalTitulares <= 0)
+            printf("\nERRO: O número de titulares deve ser maior que 0!\n");
+    }while(conta->totalTitulares > 5 || conta->totalTitulares <= 0);
     fflush(stdin);
 
     //leitura dos dados dos titulares
@@ -61,6 +59,7 @@ void abrirConta(TipoConta *conta, int numAtualContas){
         do{
             printf("NIF > ");
             scanf("%d", &conta->titulares[i].nif);
+            fflush(stdin);
 
             num = conta->titulares[i].nif;
             quantidadeDigitos = 0;
@@ -73,33 +72,34 @@ void abrirConta(TipoConta *conta, int numAtualContas){
                 printf("\nERRO: O NIF deve ter 9 dígitos!\n");
         }while(quantidadeDigitos != 9);
 
-
-        getchar();
+        //getchar();
 
         printf("Nome > ");
         gets(conta->titulares[i].nome);
+        fflush(stdin);
     }
-    fflush(stdin);
 
     //leitura da modalidade
     do{
         printf("Modalidade da Conta (Normal:0 / Isenta:1) > ");
         scanf("%u", &conta->modalidade);
+        fflush(stdin);
 
         if(conta->modalidade < 0 || conta->modalidade > 1)
             printf("\nERRO: A modalidade deve ser 0 ou 1, Normal ou Isenta respetivamente!\n");
     }while(conta->modalidade < 0 || conta->modalidade > 1);
-    fflush(stdin);
+
 
     //leitura do saldo inicial
     do{
         printf("Saldo > ");
         scanf("%f", &conta->saldo);
+        fflush(stdin);
 
         if(conta->saldo < 150)
             printf("\nERRO: O saldo inicial deve ser igual ou superior a 150 EUR!\n");
     } while(conta->saldo < 150);
-    fflush(stdin);
+
 
     //atribuição da data de abertura (através da data local)
     conta->data.dia = tm.tm_mday;
@@ -188,7 +188,7 @@ void depositarDinheiro(TipoConta *conta){
         scanf("%f", &montante);
 
         if(montante <= 0)
-            printf("ERRO: O montante deve ser superior a 0!");
+            printf("\nERRO: O montante deve ser superior a 0!\n");
     }while(montante <= 0);
     fflush(stdin);
 
@@ -211,7 +211,7 @@ void levantarDinheiro(TipoConta *conta){
         scanf("%f", &montante);
 
         if(montante <= 0)
-            printf("\nERRO: O montante deve ser superior a 0!");
+            printf("\nERRO: O montante deve ser superior a 0!\n");
     }while(montante <= 0);
     fflush(stdin);
 
@@ -225,7 +225,7 @@ void levantarDinheiro(TipoConta *conta){
 
             //chamada da função atualizarHistorico() para atualização do histórico de movimentos
             atualizarHistorico(conta, montante, "Levantamento");
-        } else printf("\nERRO: Saldo insuficiente!");
+        } else printf("\nERRO: Saldo insuficiente!\n");
     }
     else{
         saldoSuficiente = verificarSaldoConta(conta, montante);
@@ -236,7 +236,7 @@ void levantarDinheiro(TipoConta *conta){
 
             //chamada da função atualizarHistorico() para atualização do histórico de movimentos
             atualizarHistorico(conta, montante, "Levantamento");
-        } else printf("\nERRO: Saldo insuficiente!");
+        } else printf("\nERRO: Saldo insuficiente!\n");
 
     }
 }
@@ -250,11 +250,11 @@ void transferirDinheiro(TipoConta *contaOrigem, TipoConta *contaDestino){
     do{
         printf("Montante a transferir > ");
         scanf("%f", &montante);
+        fflush(stdin);
 
         if(montante <= 0)
-            printf("\nERRO: O montante deve ser superior a 0!");
+            printf("\nERRO: O montante deve ser superior a 0!\n");
     }while(montante <= 0);
-    fflush(stdin);
 
     //verificação da modalidade da conta, verificação de saldo suficiente e realização da operação
     if(contaOrigem->modalidade == normal){
@@ -270,7 +270,7 @@ void transferirDinheiro(TipoConta *contaOrigem, TipoConta *contaDestino){
             atualizarHistorico(contaDestino, montante, "Receção de dinheiro por transferência");
         }
         else
-            printf("\nERRO: Saldo insuficiente!");
+            printf("\nERRO: Saldo insuficiente!\n");
     }
     else{
         saldoSuficiente = verificarSaldoConta(contaOrigem, montante);
@@ -284,8 +284,7 @@ void transferirDinheiro(TipoConta *contaOrigem, TipoConta *contaDestino){
             atualizarHistorico(contaOrigem, montante, "Envio de dinheiro por transferência");
             atualizarHistorico(contaDestino, montante, "Receção de dinheiro por transferência");
         } else
-            printf("\nERRO: Saldo insuficiente!");
-
+            printf("\nERRO: Saldo insuficiente!\n");
     }
 }
 

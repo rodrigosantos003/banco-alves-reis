@@ -3,7 +3,7 @@
 	<stdio.h>
 	<stdlib.h>
 
-1641421941 source:c:\projects\ips- tpsi\afp-project\projeto_joaofernandes_rodrigosantos\main.c
+1641488763 source:c:\projects\ips- tpsi\afp-project\projeto_joaofernandes_rodrigosantos\main.c
 	<stdio.h>
 	<stdlib.h>
 	<locale.h>
@@ -11,11 +11,27 @@
 
 1641421531 c:\projects\ips- tpsi\afp-project\projeto_joaofernandes_rodrigosantos\conta.h
 
-1641478835 source:c:\projects\ips- tpsi\afp-project\projeto_joaofernandes_rodrigosantos\conta.c
+1641492815 source:c:\projects\ips- tpsi\afp-project\projeto_joaofernandes_rodrigosantos\conta.c
 	<stdio.h>
 	<stdlib.h>
 	<locale.h>
 	<string.h>
 	<time.h>
+	"conta.h"
+
+1641488324 source:c:\users\ender\desktop\projeto_joãofernandes_202100718_rodrigosantos_202100722\afp-project\projeto_joaofernandes_rodrigosantos\conta.c
+	<stdio.h>
+	<stdlib.h>
+	<locale.h>
+	<string.h>
+	<time.h>
+	"conta.h"
+
+1641421531 c:\users\ender\desktop\projeto_joãofernandes_202100718_rodrigosantos_202100722\afp-project\projeto_joaofernandes_rodrigosantos\conta.h
+
+1641488763 source:c:\users\ender\desktop\projeto_joãofernandes_202100718_rodrigosantos_202100722\afp-project\projeto_joaofernandes_rodrigosantos\main.c
+	<stdio.h>
+	<stdlib.h>
+	<locale.h>
 	"conta.h"
 
