@@ -44,13 +44,13 @@ void abrirConta(TipoConta *conta, int numAtualContas){
     do{
         printf("Nº de titulares > ");
         scanf("%d", &conta->totalTitulares);
+        fflush(stdin);
 
         if(conta->totalTitulares > 5)
             printf("\nERRO: A conta deve ter até 5 titulares!\n");
         else if(conta->totalTitulares <= 0)
             printf("\nERRO: O número de titulares deve ser maior que 0!\n");
     }while(conta->totalTitulares > 5 || conta->totalTitulares <= 0);
-    fflush(stdin);
 
     //leitura dos dados dos titulares
     for(int i = 0; i < conta->totalTitulares; i++){
@@ -71,8 +71,6 @@ void abrirConta(TipoConta *conta, int numAtualContas){
             if(quantidadeDigitos != 9)
                 printf("\nERRO: O NIF deve ter 9 dígitos!\n");
         }while(quantidadeDigitos != 9);
-
-        //getchar();
 
         printf("Nome > ");
         gets(conta->titulares[i].nome);
@@ -107,7 +105,7 @@ void abrirConta(TipoConta *conta, int numAtualContas){
     conta->data.ano = tm.tm_year+1900;
 }
 
-//função que escreve os detalhes de uma conta
+//função para escrever os detalhes de uma conta
 void imprimirConta(TipoConta conta){
     printf("----------------\n");
 
@@ -186,11 +184,11 @@ void depositarDinheiro(TipoConta *conta){
     do{
         printf("Montante a depositar > ");
         scanf("%f", &montante);
+        fflush(stdin);
 
         if(montante <= 0)
             printf("\nERRO: O montante deve ser superior a 0!\n");
     }while(montante <= 0);
-    fflush(stdin);
 
     //introdução do montante no saldo da conta
     conta->saldo += montante;
@@ -209,11 +207,11 @@ void levantarDinheiro(TipoConta *conta){
     do{
         printf("Montante a levantar > ");
         scanf("%f", &montante);
+        fflush(stdin);
 
         if(montante <= 0)
             printf("\nERRO: O montante deve ser superior a 0!\n");
     }while(montante <= 0);
-    fflush(stdin);
 
     //verificação da modalidade da conta, verificação de saldo suficiente e realização da operação
     if(conta->modalidade == normal){
@@ -241,7 +239,7 @@ void levantarDinheiro(TipoConta *conta){
     }
 }
 
-//função para transferência de dinheiro numa conta
+//função para transferência de dinheiro entre contas
 void transferirDinheiro(TipoConta *contaOrigem, TipoConta *contaDestino){
     float montante = 0.0F;
     int saldoSuficiente = 0;
