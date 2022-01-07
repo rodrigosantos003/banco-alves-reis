@@ -121,7 +121,10 @@ void operacoesMenu(int opcao, TipoConta contas[], int numAtualContas){
             break;
         case 6: /*transferência de dinheiro*/
             do{
+                printf("CONTA DE ORIGEM\n");
                 contaOrigem = lerNumConta(contas, numAtualContas);
+
+                printf("CONTA DE DESTINO\n");
                 contaDestino = lerNumConta(contas, numAtualContas);
             }while(contaOrigem == -1 || contaDestino == -1);
 
