@@ -2,7 +2,7 @@
     @name: Banco Alves dos Reis
     @description: Porgrama de gestão bancária
     @authors: João Fernandes & Rodrigo Santos
-    @last_modified: 2021-01-07
+    @last_modified: 2022-01-11
 */
 
 #include <stdio.h>
@@ -53,7 +53,8 @@ void mostrarMenu(int numAtualContas, float totalFundos)
 }
 
 //função que executa as operações do menu (dada a respetiva opção)
-void operacoesMenu(int opcao, TipoConta contas[], int numAtualContas){
+void operacoesMenu(int opcao, TipoConta contas[], int numAtualContas)
+{
     char listagem, sair;
     int contaOrigem, contaDestino;
 
@@ -65,118 +66,151 @@ void operacoesMenu(int opcao, TipoConta contas[], int numAtualContas){
     fflush(stdin);
 
     //verificação da opção e execução das respetivas operações
-    switch(opcao){
-        case 1: /*abertura de conta*/
-            if(numAtualContas < MAX_CONTAS){
-                abrirConta(&contas[numAtualContas], numAtualContas);
-                numAtualContas++;
-            }
-            else
-                printf("\nERRO: Não é possível abrir mais contas!\n");
+    switch(opcao)
+    {
+    case 1: /*abertura de conta*/
+        if(numAtualContas < MAX_CONTAS)
+        {
+            abrirConta(&contas[numAtualContas], numAtualContas);
+            numAtualContas++;
+        }
+        else
+            printf("\nERRO: Não é possível abrir mais contas!\n");
 
+        mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas));
+        operacoesMenu(opcao, contas, numAtualContas);
+        break;
+    case 2: /*listagem de todas as contas*/
+        printf("Listar todas as contas registadas (T) ou contas de um determinado cliente (C)? ");
+        scanf("%c", &listagem);
+        fflush(stdin);
+
+        if(listagem == 'T' || listagem == 't')
+            listarTodasContas(contas, numAtualContas);
+        else if(listagem == 'C' || listagem == 'c')
+            listarContasCliente(contas, numAtualContas);
+        else
+            printf("ERRO: Opção inválida!");
+
+        mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas));
+        operacoesMenu(opcao, contas, numAtualContas);
+        break;
+    case 3: /*consulta dos detalhes de uma conta*/
+        do
+        {
+            contaOrigem = lerNumConta(contas, numAtualContas);
+        }
+        while(contaOrigem == -1);
+
+        imprimirConta(contas[contaOrigem]);
+
+        mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas));
+        operacoesMenu(opcao, contas, numAtualContas);
+        break;
+    case 4: /*depósito de dinheiro*/
+        do
+        {
+            contaOrigem = lerNumConta(contas, numAtualContas);
+        }
+        while(contaOrigem == -1);
+
+        depositarDinheiro(&contas[contaOrigem]);
+
+        mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas));
+        operacoesMenu(opcao, contas, numAtualContas);
+        break;
+    case 5: /*levantamento de dinheiro*/
+        do
+        {
+            contaOrigem = lerNumConta(contas, numAtualContas);
+        }
+        while(contaOrigem == -1);
+
+        levantarDinheiro(&contas[contaOrigem]);
+
+        mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas));
+        operacoesMenu(opcao, contas, numAtualContas);
+        break;
+    case 6: /*transferência de dinheiro*/
+        do
+        {
+            printf("CONTA DE ORIGEM\n");
+            contaOrigem = lerNumConta(contas, numAtualContas);
+
+            printf("CONTA DE DESTINO\n");
+            contaDestino = lerNumConta(contas, numAtualContas);
+        }
+        while(contaOrigem == -1 || contaDestino == -1);
+
+        transferirDinheiro(&contas[contaOrigem], &contas[contaDestino]);
+
+        mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas));
+        operacoesMenu(opcao, contas, numAtualContas);
+        break;
+    case 7: /*edição de informações de conta*/
+        do
+        {
+            contaOrigem = lerNumConta(contas, numAtualContas);
+        }
+        while(contaOrigem == -1);
+
+        editarDetalhesConta(&contas[contaOrigem]);
+
+        mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas));
+        operacoesMenu(opcao, contas, numAtualContas);
+        break;
+    case 8: /*eliminação de conta*/
+        do
+        {
+            contaOrigem = lerNumConta(contas, numAtualContas);
+        }
+        while(contaOrigem == -1);
+
+        if(contas[contaOrigem].saldo == 0.0)
+            eliminarConta(contas, numAtualContas, contaOrigem);
+        else
+            printf("\nERRO: O saldo da conta deve estar a 0!\n");
+
+        mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas));
+        operacoesMenu(opcao, contas, numAtualContas);
+        break;
+    case 9: /*guardar contas em ficheiro*/
+        mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas));
+        operacoesMenu(opcao, contas, numAtualContas);
+        break;
+    case 10: /*saída do programa*/
+        printf("Deseja sair do programa (S/N)? ");
+        scanf("%c", &sair);
+        fflush(stdin);
+
+        if(sair == 's' || sair == 'S')
+            exit(0);
+        else if(sair == 'n' || sair == 'N')
+        {
             mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas));
             operacoesMenu(opcao, contas, numAtualContas);
-            break;
-        case 2: /*listagem de todas as contas*/
-            printf("Listar todas as contas registadas (T) ou contas de um determinado cliente (C)? ");
-            scanf("%c", &listagem);
-            fflush(stdin);
-
-            if(listagem == 'T' || listagem == 't')
-                listarTodasContas(contas, numAtualContas);
-            else if(listagem == 'C' || listagem == 'c')
-                listarContasCliente(contas, numAtualContas);
-            else
-                printf("ERRO: Opção inválida!");
-
+        }
+        else
+        {
+            printf("\nERRO: Resposta inválida!\n");
             mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas));
             operacoesMenu(opcao, contas, numAtualContas);
-            break;
-        case 3: /*consulta dos detalhes de uma conta*/
-            do{
-                contaOrigem = lerNumConta(contas, numAtualContas);
-            }while(contaOrigem == -1);
-
-            imprimirConta(contas[contaOrigem]);
-
-            mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas));
-            operacoesMenu(opcao, contas, numAtualContas);
-            break;
-        case 4: /*depósito de dinheiro*/
-            do{
-                contaOrigem = lerNumConta(contas, numAtualContas);
-            }while(contaOrigem == -1);
-
-            depositarDinheiro(&contas[contaOrigem]);
-
-            mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas));
-            operacoesMenu(opcao, contas, numAtualContas);
-            break;
-        case 5: /*levantamento de dinheiro*/
-            do{
-                contaOrigem = lerNumConta(contas, numAtualContas);
-            }while(contaOrigem == -1);
-
-            levantarDinheiro(&contas[contaOrigem]);
-
-            mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas));
-            operacoesMenu(opcao, contas, numAtualContas);
-            break;
-        case 6: /*transferência de dinheiro*/
-            do{
-                printf("CONTA DE ORIGEM\n");
-                contaOrigem = lerNumConta(contas, numAtualContas);
-
-                printf("CONTA DE DESTINO\n");
-                contaDestino = lerNumConta(contas, numAtualContas);
-            }while(contaOrigem == -1 || contaDestino == -1);
-
-            transferirDinheiro(&contas[contaOrigem], &contas[contaDestino]);
-
-            mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas));
-            operacoesMenu(opcao, contas, numAtualContas);
-            break;
-        case 7: /*edição de informações de conta*/
-            mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas));
-            operacoesMenu(opcao, contas, numAtualContas);
-            break;
-        case 8: /*eliminação de conta*/
-            mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas));
-            operacoesMenu(opcao, contas, numAtualContas);
-            break;
-        case 9: /*eliminação de conta*/
-            mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas));
-            operacoesMenu(opcao, contas, numAtualContas);
-            break;
-        case 10: /*saída do programa*/
-            printf("Deseja sair do programa (S/N)? ");
-            scanf("%c", &sair);
-            fflush(stdin);
-
-            if(sair == 's' || sair == 'S')
-                exit(0);
-            else if(sair == 'n' || sair == 'N'){
-                mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas));
-                operacoesMenu(opcao, contas, numAtualContas);
-            }
-            else{
-                printf("\nERRO: Resposta inválida!\n");
-                mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas));
-                operacoesMenu(opcao, contas, numAtualContas);
-            }
-            break;
-        default: /*opção do menu não existente*/
-            printf("\nERRO: A opção escolhida não existe!\n");
-            operacoesMenu(opcao, contas, numAtualContas);
+        }
+        break;
+    default: /*opção do menu não existente*/
+        printf("\nERRO: A opção escolhida não existe!\n");
+        operacoesMenu(opcao, contas, numAtualContas);
     }
 }
 
 //função para cálculo do total de fundos
-float totalFundos(TipoConta contas[], int numAtualContas){
+float totalFundos(TipoConta contas[], int numAtualContas)
+{
     float total = 0.0F;
 
     //soma dos saldos de todas as contas
-    for(int i = 0; i < numAtualContas; i++){
+    for(int i = 0; i < numAtualContas; i++)
+    {
         total += contas[i].saldo;
     }
 

@@ -39,6 +39,6 @@ void levantarDinheiro(TipoConta *conta);
 void transferirDinheiro(TipoConta *contaOrigem, TipoConta *contaDestino);
 void atualizarHistorico(TipoConta *conta, float valor, char descricao[101]);
 void editarDetalhesConta(TipoConta *conta);
-void elimiarConta(TipoConta conta);
+void eliminarConta(TipoConta contas[], int numAtualContas, int indiceApagar);
 
 #endif // CONTA_H_INCLUDED
