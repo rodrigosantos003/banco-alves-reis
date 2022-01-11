@@ -130,7 +130,7 @@ void imprimirConta(TipoConta conta)
     printf("TITULARES\n");
     for(int i = 0; i < conta.totalTitulares; i++)
     {
-        printf("Titular %d: ", i+1);
+        printf("\tTitular %d: ", i+1);
         printf("| Nome: %-25s ", conta.titulares[i].nome);
         printf("| NIF: %d\n", conta.titulares[i].nif);
     }
@@ -145,7 +145,7 @@ void imprimirConta(TipoConta conta)
     printf("Histórico (últimos 3 movimentos)\n");
     for(int i = 0; i < 3; i++)
     {
-        printf("Descrição: %-25s | ", conta.historico[i].descricao);
+        printf("\tDescrição: %-25s | ", conta.historico[i].descricao);
         printf("Valor: %.2f\n", conta.historico[i].valor);
     }
 

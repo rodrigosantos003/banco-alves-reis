@@ -1,0 +1,13 @@
+----------------
+Número: 1
+TITULARES
+	1: | Nome: Rodrigo Santos            | NIF: 270251260
+	2: | Nome: Miguel Santos             | NIF: 270235400
+Modalidade: Normal
+Saldo: 1000,00 EUR
+HISTÓRICO
+	Descrição:                           | Valor: 0,00
+	Descrição:                           | Valor: 0,00
+	Descrição:                           | Valor: 0,00
+Data de abertura: 11/01/2022
+----------------

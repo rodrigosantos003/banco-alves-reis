@@ -15,6 +15,7 @@
 void mostrarMenu(int numAtualContas, float totalFundos);
 void operacoesMenu(int opcao, TipoConta contas[], int numAtualContas);
 float totalFundos(TipoConta contas[], int numAtualContas);
+void guardarContas(TipoConta contas[], int numAtualContas);
 
 int main()
 {
@@ -37,6 +38,8 @@ int main()
 //função que apresenta o menu
 void mostrarMenu(int numAtualContas, float totalFundos)
 {
+    system("cls");
+
     printf("BANCO ALVES DOS REIS\n\n");
     printf("Existem %d contas ativas e um total de %.2f EUR em fundos\n\n", numAtualContas, totalFundos);
 
@@ -77,6 +80,8 @@ void operacoesMenu(int opcao, TipoConta contas[], int numAtualContas)
         else
             printf("\nERRO: Não é possível abrir mais contas!\n");
 
+        system("pause");
+
         mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas));
         operacoesMenu(opcao, contas, numAtualContas);
         break;
@@ -92,6 +97,8 @@ void operacoesMenu(int opcao, TipoConta contas[], int numAtualContas)
         else
             printf("ERRO: Opção inválida!");
 
+        system("pause");
+
         mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas));
         operacoesMenu(opcao, contas, numAtualContas);
         break;
@@ -104,6 +111,8 @@ void operacoesMenu(int opcao, TipoConta contas[], int numAtualContas)
 
         imprimirConta(contas[contaOrigem]);
 
+        system("pause");
+
         mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas));
         operacoesMenu(opcao, contas, numAtualContas);
         break;
@@ -115,6 +124,8 @@ void operacoesMenu(int opcao, TipoConta contas[], int numAtualContas)
         while(contaOrigem == -1);
 
         depositarDinheiro(&contas[contaOrigem]);
+
+        system("pause");
 
         mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas));
         operacoesMenu(opcao, contas, numAtualContas);
@@ -144,6 +155,8 @@ void operacoesMenu(int opcao, TipoConta contas[], int numAtualContas)
 
         transferirDinheiro(&contas[contaOrigem], &contas[contaDestino]);
 
+        system("pause");
+
         mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas));
         operacoesMenu(opcao, contas, numAtualContas);
         break;
@@ -155,6 +168,8 @@ void operacoesMenu(int opcao, TipoConta contas[], int numAtualContas)
         while(contaOrigem == -1);
 
         editarDetalhesConta(&contas[contaOrigem]);
+
+        system("pause");
 
         mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas));
         operacoesMenu(opcao, contas, numAtualContas);
@@ -171,10 +186,16 @@ void operacoesMenu(int opcao, TipoConta contas[], int numAtualContas)
         else
             printf("\nERRO: O saldo da conta deve estar a 0!\n");
 
+        system("pause");
+
         mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas));
         operacoesMenu(opcao, contas, numAtualContas);
         break;
     case 9: /*guardar contas em ficheiro*/
+        guardarContas(contas, numAtualContas);
+
+        system("pause");
+
         mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas));
         operacoesMenu(opcao, contas, numAtualContas);
         break;
@@ -216,4 +237,52 @@ float totalFundos(TipoConta contas[], int numAtualContas)
 
     //retorna a soma dos saldos
     return total;
+}
+
+//função para guardar contas num ficheiro de texto
+void guardarContas(TipoConta contas[], int numAtualContas)
+{
+    FILE *ficheiroContas;
+
+    ficheiroContas = fopen("contas.txt", "w");
+
+    if(ficheiroContas == NULL)
+    {
+        printf("\nERRO: Ocorreu um erro ao abrir o ficheiro!\n");
+        exit(1);
+    }
+
+    for(int i = 0; i < numAtualContas; i++)
+    {
+        fprintf(ficheiroContas, "----------------\n");
+
+        fprintf(ficheiroContas, "Número: %d\n", contas[i].numero);
+        fprintf(ficheiroContas, "TITULARES\n");
+        for(int j = 0; j < contas[i].totalTitulares; j++)
+        {
+            fprintf(ficheiroContas, "\t%d: ", j+1);
+            fprintf(ficheiroContas, "| Nome: %-25s ", contas[i].titulares[j].nome);
+            fprintf(ficheiroContas, "| NIF: %d\n", contas[i].titulares[j].nif);
+        }
+
+        if(contas[i].modalidade == normal)
+            fprintf(ficheiroContas, "Modalidade: Normal\n");
+        else
+            fprintf(ficheiroContas, "Modalidade: Isenta\n");
+
+        fprintf(ficheiroContas, "Saldo: %.2f EUR\n", contas[i].saldo);
+        fprintf(ficheiroContas, "HISTÓRICO\n");
+        for(int x = 0; x < 3; x++)
+        {
+            fprintf(ficheiroContas, "\tDescrição: %-25s ", contas[i].historico[x].descricao);
+            fprintf(ficheiroContas, "| Valor: %.2f\n", contas[i].historico[x].valor);
+        }
+        fprintf(ficheiroContas, "Data de abertura: %02d/%02d/%4d\n", contas[i].data.dia, contas[i].data.mes, contas[i].data.ano);
+
+        fprintf(ficheiroContas, "----------------\n");
+    }
+
+    fclose(ficheiroContas);
+
+    printf("\nContas guardadas com sucesso!\n");
 }
