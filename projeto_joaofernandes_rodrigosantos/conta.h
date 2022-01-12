@@ -2,30 +2,34 @@
 #define CONTA_H_INCLUDED
 
 //estruturas de dados
-typedef struct{
+typedef struct
+{
     int nif;
     char nome[101];
-}TipoCliente;
+} TipoCliente;
 
-typedef enum {normal, isenta}TipoModalidadeConta;
+typedef enum {normal, isenta} TipoModalidadeConta;
 
-typedef struct{
+typedef struct
+{
     char descricao[101];
     float valor;
-}TipoHistorico;
+} TipoHistorico;
 
-typedef struct{
+typedef struct
+{
     int dia, mes, ano;
-}TipoData;
+} TipoData;
 
-typedef struct{
+typedef struct
+{
     int numero, totalTitulares;
     TipoCliente titulares[5];
     TipoModalidadeConta modalidade;
     float saldo;
     TipoHistorico historico[3];
     TipoData data;
-}TipoConta;
+} TipoConta;
 
 //protótipos de funções
 int lerNumConta(TipoConta contas[], int numAtualContas);

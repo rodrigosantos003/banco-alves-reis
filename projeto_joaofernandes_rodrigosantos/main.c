@@ -257,10 +257,11 @@ void guardarContas(TipoConta contas[], int numAtualContas)
         fprintf(ficheiroContas, "----------------\n");
 
         fprintf(ficheiroContas, "Número: %d\n", contas[i].numero);
-        fprintf(ficheiroContas, "TITULARES\n");
+
+        fprintf(ficheiroContas, "TITULARES:\n");
         for(int j = 0; j < contas[i].totalTitulares; j++)
         {
-            fprintf(ficheiroContas, "\t%d: ", j+1);
+            fprintf(ficheiroContas, "\t%d ", j+1);
             fprintf(ficheiroContas, "| Nome: %-25s ", contas[i].titulares[j].nome);
             fprintf(ficheiroContas, "| NIF: %d\n", contas[i].titulares[j].nif);
         }
@@ -271,7 +272,8 @@ void guardarContas(TipoConta contas[], int numAtualContas)
             fprintf(ficheiroContas, "Modalidade: Isenta\n");
 
         fprintf(ficheiroContas, "Saldo: %.2f EUR\n", contas[i].saldo);
-        fprintf(ficheiroContas, "HISTÓRICO\n");
+
+        fprintf(ficheiroContas, "HISTÓRICO:\n");
         for(int x = 0; x < 3; x++)
         {
             fprintf(ficheiroContas, "\tDescrição: %-25s ", contas[i].historico[x].descricao);

@@ -127,10 +127,10 @@ void imprimirConta(TipoConta conta)
 
     printf("Número: %d\n", conta.numero);
 
-    printf("TITULARES\n");
+    printf("TITULARES:\n");
     for(int i = 0; i < conta.totalTitulares; i++)
     {
-        printf("\tTitular %d: ", i+1);
+        printf("\t%d ", i+1);
         printf("| Nome: %-25s ", conta.titulares[i].nome);
         printf("| NIF: %d\n", conta.titulares[i].nif);
     }
@@ -142,7 +142,7 @@ void imprimirConta(TipoConta conta)
 
     printf("Saldo: %.2f EUR \n", conta.saldo);
 
-    printf("Histórico (últimos 3 movimentos)\n");
+    printf("HISTÓRICO (últimos 3 movimentos):\n");
     for(int i = 0; i < 3; i++)
     {
         printf("\tDescrição: %-25s | ", conta.historico[i].descricao);
@@ -320,7 +320,7 @@ void transferirDinheiro(TipoConta *contaOrigem, TipoConta *contaDestino)
         {
             contaOrigem->saldo -= montante;
             contaDestino->saldo += montante;
-            printf("\nMontante levantada com sucesso (%.2f EUR)\n", montante);
+            printf("\nMontante levantado com sucesso (%.2f EUR)!\n", montante);
 
             //chamada da função atualizarHistorico() para atualização do histórico de movimentos
             atualizarHistorico(contaOrigem, montante, "Envio de dinheiro por transferência");
@@ -426,6 +426,7 @@ void eliminarConta(TipoConta contas[], int numAtualContas, int indiceApagar){
 
         numAtualContas--;
 
+        printf("\nConta eliminada com sucesso!\n");
     }
     else
         printf("\nERRO: Não é possível apagar a conta!\n");
