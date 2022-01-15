@@ -418,17 +418,12 @@ void editarDetalhesConta(TipoConta *conta)
     }
 }
 
-void eliminarConta(TipoConta contas[], int numAtualContas, int indiceApagar){
-    if(indiceApagar >= numAtualContas + 1){
-        for(int i = indiceApagar - 1; i < numAtualContas - 1; i++){
-            contas[i] = contas[i+1];
-        }
-
-        numAtualContas--;
-
-        printf("\nConta eliminada com sucesso!\n");
+void eliminarConta(TipoConta contas[], int numAtualContas, int indiceApagar)
+{
+    for(int i = indiceApagar; i < numAtualContas; i++)
+    {
+        contas[i] = contas[i+1];
     }
-    else
-        printf("\nERRO: Não é possível apagar a conta!\n");
 
+    printf("\nConta eliminada com sucesso!\n");
 }
