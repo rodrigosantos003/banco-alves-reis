@@ -3,6 +3,7 @@
 #include <locale.h>
 #include <string.h>
 #include <time.h>
+
 #include "conta.h"
 
 //função para leitura do número de conta e verificação da sua existência
@@ -83,9 +84,18 @@ void abrirConta(TipoConta *conta, int numAtualContas)
         }
         while(quantidadeDigitos != 9);
 
-        printf("Nome > ");
-        gets(conta->titulares[i].nome);
-        fflush(stdin);
+
+        do
+        {
+            printf("Nome > ");
+            gets(conta->titulares[i].nome);
+            fflush(stdin);
+
+            if(strcmp(conta->titulares[i].nome, "") == 0)
+                printf("\nERRO: O nome deve estar preenchido!\n");
+        }
+        while(strcmp(conta->titulares[i].nome, "") == 0);
+
     }
 
     //leitura da modalidade
@@ -154,195 +164,6 @@ void imprimirConta(TipoConta conta)
     printf("----------------\n");
 }
 
-//função para listar todas as contas registadas
-void listarTodasContas(TipoConta contas[], int numAtualContas)
-{
-    //iteração para escrita de todas as contas existentes
-    for(int i = 0; i < numAtualContas; i++)
-    {
-        imprimirConta(contas[i]);
-        printf("\n");
-    }
-}
-
-//função para listar todas as contas de um determinado cliente
-void listarContasCliente(TipoConta contas[], int numAtualContas)
-{
-    int nif;
-
-    //leitura do NIF do cliente
-    printf("NIF a consultar > ");
-    scanf("%d", &nif);
-    fflush(stdin);
-
-    //iteração para percorrer todas as contas
-    for(int i = 0; i < numAtualContas; i++)
-    {
-        //iteração para percorrer os titulares da cintas
-        for(int x = 0; x < contas[i].totalTitulares; x++)
-        {
-            //se o NIF do titular for igual ao NIF introduzido, são escritos os detalhes da conta
-            if(contas[i].titulares[x].nif == nif)
-            {
-                imprimirConta(contas[i]);
-                printf("\n");
-            }
-        }
-    }
-}
-
-//função para verificação de saldo suficiente
-int verificarSaldoConta(TipoConta *conta, float montante)
-{
-    //se o saldo for superior ao montante recebido é retornado 1 (i.e verdadeiro)
-    if(conta->saldo >= montante)
-        return 1;
-    //senão é retornado 0 (i.e falso)
-    return 0;
-}
-
-//função para depósito de dinheiro numa conta
-void depositarDinheiro(TipoConta *conta)
-{
-    float montante = 0.0F;
-
-    //leitura do montante a depositar
-    do
-    {
-        printf("Montante a depositar > ");
-        scanf("%f", &montante);
-        fflush(stdin);
-
-        if(montante <= 0)
-            printf("\nERRO: O montante deve ser superior a 0!\n");
-    }
-    while(montante <= 0);
-
-    //introdução do montante no saldo da conta
-    conta->saldo += montante;
-    printf("\nMontante depositado com sucesso (%.2f EUR)!\n", montante);
-
-    //chamada da função atualizarHistorico() para atualização do histórico de movimentos
-    atualizarHistorico(conta, montante, "Depósito");
-}
-
-//função para levantamento de dinheiro de uma conta
-void levantarDinheiro(TipoConta *conta)
-{
-    float montante = 0.0F;
-    int saldoSuficiente = 0;
-
-    //leitura do montante a levantar
-    do
-    {
-        printf("Montante a levantar > ");
-        scanf("%f", &montante);
-        fflush(stdin);
-
-        if(montante <= 0)
-            printf("\nERRO: O montante deve ser superior a 0!\n");
-    }
-    while(montante <= 0);
-
-    //verificação da modalidade da conta, verificação de saldo suficiente e realização da operação
-    if(conta->modalidade == normal)
-    {
-        saldoSuficiente = verificarSaldoConta(conta, montante + 5);
-
-        if(saldoSuficiente == 1)
-        {
-            conta->saldo -= montante + 5;
-            printf("\nMontante levantada com sucesso (%.2f EUR)!\n", montante);
-
-            //chamada da função atualizarHistorico() para atualização do histórico de movimentos
-            atualizarHistorico(conta, montante, "Levantamento");
-        }
-        else printf("\nERRO: Saldo insuficiente!\n");
-    }
-    else
-    {
-        saldoSuficiente = verificarSaldoConta(conta, montante);
-
-        if(saldoSuficiente == 1)
-        {
-            conta->saldo -= montante;
-            printf("\nMontante levantada com sucesso (%.2f EUR)!\n", montante);
-
-            //chamada da função atualizarHistorico() para atualização do histórico de movimentos
-            atualizarHistorico(conta, montante, "Levantamento");
-        }
-        else printf("\nERRO: Saldo insuficiente!\n");
-
-    }
-}
-
-//função para transferência de dinheiro entre contas
-void transferirDinheiro(TipoConta *contaOrigem, TipoConta *contaDestino)
-{
-    float montante = 0.0F;
-    int saldoSuficiente = 0;
-
-    //leitura do montante a transferir
-    do
-    {
-        printf("Montante a transferir > ");
-        scanf("%f", &montante);
-        fflush(stdin);
-
-        if(montante <= 0)
-            printf("\nERRO: O montante deve ser superior a 0!\n");
-    }
-    while(montante <= 0);
-
-    //verificação da modalidade da conta, verificação de saldo suficiente e realização da operação
-    if(contaOrigem->modalidade == normal)
-    {
-        saldoSuficiente = verificarSaldoConta(contaOrigem, montante + 5);
-
-        if(saldoSuficiente == 1)
-        {
-            contaOrigem->saldo -= montante + 5;
-            contaDestino->saldo += montante;
-            printf("\nMontante transferido com sucesso (%.2f EUR)!\n", montante);
-
-            //chamada da função atualizarHistorico() para atualização do histórico de movimentos
-            atualizarHistorico(contaOrigem, montante, "Envio de dinheiro por transferência");
-            atualizarHistorico(contaDestino, montante, "Receção de dinheiro por transferência");
-        }
-        else
-            printf("\nERRO: Saldo insuficiente!\n");
-    }
-    else
-    {
-        saldoSuficiente = verificarSaldoConta(contaOrigem, montante);
-
-        if(saldoSuficiente == 1)
-        {
-            contaOrigem->saldo -= montante;
-            contaDestino->saldo += montante;
-            printf("\nMontante levantado com sucesso (%.2f EUR)!\n", montante);
-
-            //chamada da função atualizarHistorico() para atualização do histórico de movimentos
-            atualizarHistorico(contaOrigem, montante, "Envio de dinheiro por transferência");
-            atualizarHistorico(contaDestino, montante, "Receção de dinheiro por transferência");
-        }
-        else
-            printf("\nERRO: Saldo insuficiente!\n");
-    }
-}
-
-//função para atualização do histórico
-void atualizarHistorico(TipoConta *conta, float valor, char descricao[101])
-{
-    strcpy(conta->historico[2].descricao, conta->historico[1].descricao);
-    conta->historico[2].valor = conta->historico[1].valor;
-
-    strcpy(conta->historico[1].descricao, conta->historico[0].descricao);
-    conta->historico[1].valor = conta->historico[0].valor;
-
-    strcpy(conta->historico[0].descricao, descricao);
-    conta->historico[0].valor = valor;
-}
 
 //função para edição dos detalhes da conta
 void editarDetalhesConta(TipoConta *conta)

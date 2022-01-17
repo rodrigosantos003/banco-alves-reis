@@ -35,9 +35,17 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="conta.h" />
+		<Unit filename="gestao.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="gestao.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="movimentacoes.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="movimentacoes.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>
