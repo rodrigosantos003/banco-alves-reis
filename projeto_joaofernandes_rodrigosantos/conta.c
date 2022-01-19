@@ -5,6 +5,8 @@
 #include <time.h>
 
 #include "conta.h"
+#include "gestao.h"
+#include "movimentacoes.h"
 
 //função para leitura do número de conta e verificação da sua existência
 int lerNumConta(TipoConta contas[], int numAtualContas)

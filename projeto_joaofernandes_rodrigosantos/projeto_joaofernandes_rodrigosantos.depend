@@ -3,7 +3,7 @@
 	<stdio.h>
 	<stdlib.h>
 
-1642431779 source:c:\projects\ips- tpsi\afp-project\projeto_joaofernandes_rodrigosantos\main.c
+1642603689 source:c:\projects\ips- tpsi\afp-project\projeto_joaofernandes_rodrigosantos\main.c
 	<stdio.h>
 	<stdlib.h>
 	<locale.h>
@@ -39,20 +39,23 @@
 
 1642431848 c:\projects\ips- tpsi\afp-project\projeto_joaofernandes_rodrigosantos\movimentacoes.h
 
-1642430110 source:c:\projects\ips- tpsi\afp-project\projeto_joaofernandes_rodrigosantos\movimentacoes.c
+1642602186 source:c:\projects\ips- tpsi\afp-project\projeto_joaofernandes_rodrigosantos\movimentacoes.c
 	<stdio.h>
 	<stdlib.h>
 	<locale.h>
 	<string.h>
 	"conta.h"
 	"movimentacoes.h"
+	"gestao.h"
 
-1642431763 source:c:\projects\ips- tpsi\afp-project\projeto_joaofernandes_rodrigosantos\gestao.c
+1642601982 source:c:\projects\ips- tpsi\afp-project\projeto_joaofernandes_rodrigosantos\gestao.c
 	<stdio.h>
 	<stdlib.h>
 	<locale.h>
+	<string.h>
 	"conta.h"
+	"gestao.h"
 	"movimentacoes.h"
 
-1642431883 c:\projects\ips- tpsi\afp-project\projeto_joaofernandes_rodrigosantos\gestao.h
+1642601589 c:\projects\ips- tpsi\afp-project\projeto_joaofernandes_rodrigosantos\gestao.h
 

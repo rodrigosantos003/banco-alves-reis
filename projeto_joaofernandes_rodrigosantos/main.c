@@ -2,7 +2,7 @@
     @name: Banco Alves dos Reis
     @description: Porgrama de gestão bancária
     @authors: João Fernandes & Rodrigo Santos
-    @last_modified: 2022-01-17
+    @last_modified: 2022-01-19
 */
 
 #include <stdio.h>
@@ -28,6 +28,8 @@ int main()
 
     //inicialização das variáveis inteiras a zero
     numAtualContas = 0;
+
+    system("title BANCO ALVES DOS REIS");
 
     //chamada das funções mostrarMenu() e operacoesMenu()
     mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas));
@@ -170,7 +172,8 @@ void operacoesMenu(TipoConta contas[], int numAtualContas)
 
         if(contaOrigem != -1)
         {
-            if(contas[contaOrigem].saldo == 0.0){
+            if(contas[contaOrigem].saldo == 0.0)
+            {
                 eliminarConta(contas, numAtualContas, contaOrigem);
                 numAtualContas--;
             }

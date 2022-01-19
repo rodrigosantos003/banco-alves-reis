@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
+#include <string.h>
 
 #include "conta.h"
+#include "gestao.h"
 #include "movimentacoes.h"
 
 //função para cálculo do total de fundos
@@ -107,3 +109,31 @@ void listarContasCliente(TipoConta contas[], int numAtualContas)
     }
 }
 
+int aprovarTransacao(TipoConta *conta){
+    char nome[101];
+    int nif, numTitulares;
+
+    printf("Qual o nome do 1º titular da conta? ");
+    gets(nome);
+    fflush(stdin);
+
+    printf("Qual é o seu NIF? ");
+    scanf("%d", &nif);
+    fflush(stdin);
+
+    printf("Quantos titulares tem a conta? ");
+    scanf("%d", &numTitulares);
+    fflush(stdin);
+
+    if(strcmp(nome, conta->titulares[0].nome) == 0){
+        if(numTitulares == conta->totalTitulares){
+            for(int i = 0; i < conta->totalTitulares; i++){
+                if(nif == conta->titulares[i].nif){
+                    return 1;
+                }
+            }
+        }
+    }
+
+    return -1;
+}

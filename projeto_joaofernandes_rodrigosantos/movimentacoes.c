@@ -4,6 +4,7 @@
 #include <string.h>
 
 #include "conta.h"
+#include "gestao.h"
 #include "movimentacoes.h"
 
 //função para verificação de saldo suficiente
@@ -46,6 +47,7 @@ void levantarDinheiro(TipoConta *conta)
 {
     float montante = 0.0F;
     int saldoSuficiente = 0;
+    int aprovacao;
 
     //leitura do montante a levantar
     do
@@ -59,36 +61,53 @@ void levantarDinheiro(TipoConta *conta)
     }
     while(montante <= 0);
 
-    //verificação da modalidade da conta, verificação de saldo suficiente e realização da operação
-    if(conta->modalidade == normal)
+    if(montante >= 400)
     {
-        saldoSuficiente = verificarSaldoConta(conta, montante + 5);
+        printf("\nAVISO: O montante indicado é consideraddo um movimento suspeito!\n");
+        printf("Iremos proceder a perguntas de segurança!\n");
 
-        if(saldoSuficiente == 1)
-        {
-            conta->saldo -= montante + 5;
-            printf("\nMontante levantada com sucesso (%.2f EUR)!\n", montante);
-
-            //chamada da função atualizarHistorico() para atualização do histórico de movimentos
-            atualizarHistorico(conta, montante, "Levantamento");
-        }
-        else printf("\nERRO: Saldo insuficiente!\n");
+        aprovacao = aprovarTransacao(conta);
     }
     else
+        aprovacao = 1;
+
+
+    if(aprovacao == 1)
     {
-        saldoSuficiente = verificarSaldoConta(conta, montante);
-
-        if(saldoSuficiente == 1)
+        //verificação da modalidade da conta, verificação de saldo suficiente e realização da operação
+        if(conta->modalidade == normal)
         {
-            conta->saldo -= montante;
-            printf("\nMontante levantada com sucesso (%.2f EUR)!\n", montante);
+            saldoSuficiente = verificarSaldoConta(conta, montante + 5);
 
-            //chamada da função atualizarHistorico() para atualização do histórico de movimentos
-            atualizarHistorico(conta, montante, "Levantamento");
+            if(saldoSuficiente == 1)
+            {
+                conta->saldo -= montante + 5;
+                printf("\nMontante levantada com sucesso (%.2f EUR)!\n", montante);
+
+                //chamada da função atualizarHistorico() para atualização do histórico de movimentos
+                atualizarHistorico(conta, montante, "Levantamento");
+            }
+            else printf("\nERRO: Saldo insuficiente!\n");
         }
-        else printf("\nERRO: Saldo insuficiente!\n");
+        else
+        {
+            saldoSuficiente = verificarSaldoConta(conta, montante);
 
+            if(saldoSuficiente == 1)
+            {
+                conta->saldo -= montante;
+                printf("\nMontante levantada com sucesso (%.2f EUR)!\n", montante);
+
+                //chamada da função atualizarHistorico() para atualização do histórico de movimentos
+                atualizarHistorico(conta, montante, "Levantamento");
+            }
+            else printf("\nERRO: Saldo insuficiente!\n");
+
+        }
     }
+    else
+        printf("\nERRO: A aprovação da transação falhou!\n");
+
 }
 
 //função para transferência de dinheiro entre contas
@@ -96,6 +115,7 @@ void transferirDinheiro(TipoConta *contaOrigem, TipoConta *contaDestino)
 {
     float montante = 0.0F;
     int saldoSuficiente = 0;
+    int aprovacao;
 
     //leitura do montante a transferir
     do
@@ -109,41 +129,56 @@ void transferirDinheiro(TipoConta *contaOrigem, TipoConta *contaDestino)
     }
     while(montante <= 0);
 
-    //verificação da modalidade da conta, verificação de saldo suficiente e realização da operação
-    if(contaOrigem->modalidade == normal)
+    if(montante >= 400)
     {
-        saldoSuficiente = verificarSaldoConta(contaOrigem, montante + 5);
+        printf("\nAVISO: O montante indicado é consideraddo um movimento suspeito.\n");
+        printf("Iremos proceder a perguntas de segurança!\n");
 
-        if(saldoSuficiente == 1)
-        {
-            contaOrigem->saldo -= montante + 5;
-            contaDestino->saldo += montante;
-            printf("\nMontante transferido com sucesso (%.2f EUR)!\n", montante);
-
-            //chamada da função atualizarHistorico() para atualização do histórico de movimentos
-            atualizarHistorico(contaOrigem, montante, "Envio de dinheiro por transferência");
-            atualizarHistorico(contaDestino, montante, "Receção de dinheiro por transferência");
-        }
-        else
-            printf("\nERRO: Saldo insuficiente!\n");
+        aprovacao = aprovarTransacao(contaOrigem);
     }
     else
+        aprovacao = 1;
+
+    if(aprovacao == 1)
     {
-        saldoSuficiente = verificarSaldoConta(contaOrigem, montante);
-
-        if(saldoSuficiente == 1)
+        //verificação da modalidade da conta, verificação de saldo suficiente e realização da operação
+        if(contaOrigem->modalidade == normal)
         {
-            contaOrigem->saldo -= montante;
-            contaDestino->saldo += montante;
-            printf("\nMontante levantado com sucesso (%.2f EUR)!\n", montante);
+            saldoSuficiente = verificarSaldoConta(contaOrigem, montante + 5);
 
-            //chamada da função atualizarHistorico() para atualização do histórico de movimentos
-            atualizarHistorico(contaOrigem, montante, "Envio de dinheiro por transferência");
-            atualizarHistorico(contaDestino, montante, "Receção de dinheiro por transferência");
+            if(saldoSuficiente == 1)
+            {
+                contaOrigem->saldo -= montante + 5;
+                contaDestino->saldo += montante;
+                printf("\nMontante transferido com sucesso (%.2f EUR)!\n", montante);
+
+                //chamada da função atualizarHistorico() para atualização do histórico de movimentos
+                atualizarHistorico(contaOrigem, montante, "Envio de dinheiro por transferência");
+                atualizarHistorico(contaDestino, montante, "Receção de dinheiro por transferência");
+            }
+            else
+                printf("\nERRO: Saldo insuficiente!\n");
         }
         else
-            printf("\nERRO: Saldo insuficiente!\n");
+        {
+            saldoSuficiente = verificarSaldoConta(contaOrigem, montante);
+
+            if(saldoSuficiente == 1)
+            {
+                contaOrigem->saldo -= montante;
+                contaDestino->saldo += montante;
+                printf("\nMontante levantado com sucesso (%.2f EUR)!\n", montante);
+
+                //chamada da função atualizarHistorico() para atualização do histórico de movimentos
+                atualizarHistorico(contaOrigem, montante, "Envio de dinheiro por transferência");
+                atualizarHistorico(contaDestino, montante, "Receção de dinheiro por transferência");
+            }
+            else
+                printf("\nERRO: Saldo insuficiente!\n");
+        }
     }
+    else
+        printf("\nERRO: A aprovação falhou!\n");
 }
 
 //função para atualização do histórico
