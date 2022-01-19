@@ -109,10 +109,12 @@ void listarContasCliente(TipoConta contas[], int numAtualContas)
     }
 }
 
+//função para aprovação de transações
 int aprovarTransacao(TipoConta *conta){
     char nome[101];
     int nif, numTitulares;
 
+    //leitura das respostas às perguntas de segurança
     printf("Qual o nome do 1º titular da conta? ");
     gets(nome);
     fflush(stdin);
@@ -125,6 +127,7 @@ int aprovarTransacao(TipoConta *conta){
     scanf("%d", &numTitulares);
     fflush(stdin);
 
+    //validação das respostas
     if(strcmp(nome, conta->titulares[0].nome) == 0){
         if(numTitulares == conta->totalTitulares){
             for(int i = 0; i < conta->totalTitulares; i++){
