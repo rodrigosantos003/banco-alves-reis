@@ -22,6 +22,80 @@ float totalFundos(TipoConta contas[], int numAtualContas)
     return total;
 }
 
+//função para listar todas as contas registadas
+void listarTodasContas(TipoConta contas[], int numAtualContas)
+{
+    //iteração para escrita de todas as contas existentes
+    for(int i = 0; i < numAtualContas; i++)
+    {
+        imprimirConta(contas[i]);
+        printf("\n");
+    }
+}
+
+//função para listar todas as contas de um determinado cliente
+void listarContasCliente(TipoConta contas[], int numAtualContas)
+{
+    int nif;
+
+    //leitura do NIF do cliente
+    printf("NIF a consultar > ");
+    scanf("%d", &nif);
+    fflush(stdin);
+
+    //iteração para percorrer todas as contas
+    for(int i = 0; i < numAtualContas; i++)
+    {
+        //iteração para percorrer os titulares da cintas
+        for(int x = 0; x < contas[i].totalTitulares; x++)
+        {
+            //se o NIF do titular for igual ao NIF introduzido, são escritos os detalhes da conta
+            if(contas[i].titulares[x].nif == nif)
+            {
+                imprimirConta(contas[i]);
+                printf("\n");
+            }
+        }
+    }
+}
+
+//função para aprovação de transações
+int aprovarTransacao(TipoConta *conta)
+{
+    char nome[101];
+    int nif, numTitulares;
+
+    //leitura das respostas às perguntas de segurança
+    printf("Qual o nome do 1º titular da conta? ");
+    gets(nome);
+    fflush(stdin);
+
+    printf("Qual é o seu NIF? ");
+    scanf("%d", &nif);
+    fflush(stdin);
+
+    printf("Quantos titulares tem a conta? ");
+    scanf("%d", &numTitulares);
+    fflush(stdin);
+
+    //validação das respostas
+    if(strcmp(nome, conta->titulares[0].nome) == 0)
+    {
+        if(numTitulares == conta->totalTitulares)
+        {
+            for(int i = 0; i < conta->totalTitulares; i++)
+            {
+                if(nif == conta->titulares[i].nif)
+                {
+                    return 1;
+                }
+            }
+        }
+    }
+
+    return -1;
+}
+
 //função para guardar contas num ficheiro de texto
 void guardarContas(TipoConta contas[], int numAtualContas)
 {
@@ -70,73 +144,4 @@ void guardarContas(TipoConta contas[], int numAtualContas)
     fclose(ficheiroContas);
 
     printf("\nContas guardadas com sucesso!\n");
-}
-
-//função para listar todas as contas registadas
-void listarTodasContas(TipoConta contas[], int numAtualContas)
-{
-    //iteração para escrita de todas as contas existentes
-    for(int i = 0; i < numAtualContas; i++)
-    {
-        imprimirConta(contas[i]);
-        printf("\n");
-    }
-}
-
-//função para listar todas as contas de um determinado cliente
-void listarContasCliente(TipoConta contas[], int numAtualContas)
-{
-    int nif;
-
-    //leitura do NIF do cliente
-    printf("NIF a consultar > ");
-    scanf("%d", &nif);
-    fflush(stdin);
-
-    //iteração para percorrer todas as contas
-    for(int i = 0; i < numAtualContas; i++)
-    {
-        //iteração para percorrer os titulares da cintas
-        for(int x = 0; x < contas[i].totalTitulares; x++)
-        {
-            //se o NIF do titular for igual ao NIF introduzido, são escritos os detalhes da conta
-            if(contas[i].titulares[x].nif == nif)
-            {
-                imprimirConta(contas[i]);
-                printf("\n");
-            }
-        }
-    }
-}
-
-//função para aprovação de transações
-int aprovarTransacao(TipoConta *conta){
-    char nome[101];
-    int nif, numTitulares;
-
-    //leitura das respostas às perguntas de segurança
-    printf("Qual o nome do 1º titular da conta? ");
-    gets(nome);
-    fflush(stdin);
-
-    printf("Qual é o seu NIF? ");
-    scanf("%d", &nif);
-    fflush(stdin);
-
-    printf("Quantos titulares tem a conta? ");
-    scanf("%d", &numTitulares);
-    fflush(stdin);
-
-    //validação das respostas
-    if(strcmp(nome, conta->titulares[0].nome) == 0){
-        if(numTitulares == conta->totalTitulares){
-            for(int i = 0; i < conta->totalTitulares; i++){
-                if(nif == conta->titulares[i].nif){
-                    return 1;
-                }
-            }
-        }
-    }
-
-    return -1;
 }

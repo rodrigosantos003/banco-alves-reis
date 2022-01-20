@@ -55,7 +55,7 @@ void mostrarMenu(int numAtualContas, float totalFundos)
     printf("7. Editar a informação de uma conta\n");
     printf("8. Eliminar uma conta\n");
     printf("9. Gravar listagem de contas para um ficheiro de texto\n");
-    printf("10. Sair do programa\n");
+    printf("10. Carregar listagem de contas\n");
 }
 
 //função que executa as operações do menu (dada a respetiva opção)
@@ -78,7 +78,12 @@ void operacoesMenu(TipoConta contas[], int numAtualContas)
     case 1: /*abertura de conta*/
         if(numAtualContas < MAX_CONTAS)
         {
-            abrirConta(&contas[numAtualContas], numAtualContas);
+            if(numAtualContas+1 == contas[numAtualContas-1].numero){
+                abrirConta(&contas[numAtualContas], numAtualContas+1);
+            }
+            else
+                abrirConta(&contas[numAtualContas], numAtualContas);
+
             numAtualContas++;
         }
         else

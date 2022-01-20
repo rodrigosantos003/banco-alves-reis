@@ -25,7 +25,8 @@ int lerNumConta(TipoConta contas[], int numAtualContas)
     direita = numAtualContas - 1;
 
     //pesquisa binária do número introduzido no array de contas
-    while(esquerda <= direita && !encontrado){
+    while(esquerda <= direita && !encontrado)
+    {
         meio = (direita + esquerda) / 2;
 
         if(contas[meio].numero == numConta)
