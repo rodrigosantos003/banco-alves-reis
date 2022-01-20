@@ -2,7 +2,7 @@
     @name: Banco Alves dos Reis
     @description: Porgrama de gestão bancária
     @authors: João Fernandes & Rodrigo Santos
-    @last_modified: 2022-01-19
+    @last_modified: 2022-01-20
 */
 
 #include <stdio.h>

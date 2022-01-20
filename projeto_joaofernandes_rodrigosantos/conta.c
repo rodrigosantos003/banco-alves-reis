@@ -3,6 +3,7 @@
 #include <locale.h>
 #include <string.h>
 #include <time.h>
+#include <ctype.h>
 
 #include "conta.h"
 #include "gestao.h"
@@ -12,21 +13,33 @@
 int lerNumConta(TipoConta contas[], int numAtualContas)
 {
     int numConta = 0;
+    int encontrado, direita, esquerda, meio;
 
     //leitura do número de conta
     printf("Introduza o número de conta: ");
     scanf("%d", &numConta);
     fflush(stdin);
 
-    //iteração para verificação da existência da conta
-    for(int i = 0; i < numAtualContas; i++)
-    {
-        //se a conta existir é retornada a sua posição no array
-        if(contas[i].numero == numConta)
-        {
-            return i;
-        }
+    encontrado = 0;
+    esquerda = 0;
+    direita = numAtualContas - 1;
+
+    //pesquisa binária do número introduzido no array de contas
+    while(esquerda <= direita && !encontrado){
+        meio = (direita + esquerda) / 2;
+
+        if(contas[meio].numero == numConta)
+            encontrado = 1;
+        else if(numConta < contas[meio].numero)
+            direita = meio - 1;
+        else
+            esquerda = meio + 1;
     }
+
+    //se a conta existir é retornada a sua posição no array
+    if(encontrado)
+        return meio;
+
     //senão é escrito no ecrã que a conta não existe e é retornado o valor de "erro" (i.e -1)
     printf("\nERRO:A conta não existe!\n");
     return -1;
@@ -95,9 +108,20 @@ void abrirConta(TipoConta *conta, int numAtualContas)
 
             if(strcmp(conta->titulares[i].nome, "") == 0)
                 printf("\nERRO: O nome deve estar preenchido!\n");
-        }
-        while(strcmp(conta->titulares[i].nome, "") == 0);
 
+            quantidadeDigitos = 0;
+            for(int j = 0; j < strlen(conta->titulares[i].nome); j++)
+            {
+                if(isdigit(conta->titulares[i].nome[j]))
+                {
+                    quantidadeDigitos++;
+                }
+            }
+
+            if(quantidadeDigitos != 0)
+                printf("\nERRO: O nome não deve conter dígitos!\n");
+        }
+        while(strcmp(conta->titulares[i].nome, "") == 0 || quantidadeDigitos != 0);
     }
 
     //leitura da modalidade
@@ -229,9 +253,28 @@ void editarDetalhesConta(TipoConta *conta)
                 }
                 while(quantidadeDigitos != 9);
 
-                printf("Nome > ");
-                gets(conta->titulares[i].nome);
-                fflush(stdin);
+                do
+                {
+                    printf("Nome > ");
+                    gets(conta->titulares[i].nome);
+                    fflush(stdin);
+
+                    if(strcmp(conta->titulares[i].nome, "") == 0)
+                        printf("\nERRO: O nome deve estar preenchido!\n");
+
+                    quantidadeDigitos = 0;
+                    for(int j = 0; j < strlen(conta->titulares[i].nome); j++)
+                    {
+                        if(isdigit(conta->titulares[i].nome[j]))
+                        {
+                            quantidadeDigitos++;
+                        }
+                    }
+
+                    if(quantidadeDigitos != 0)
+                        printf("\nERRO: O nome não deve conter dígitos!\n");
+                }
+                while(strcmp(conta->titulares[i].nome, "") == 0 || quantidadeDigitos != 0);
             }
 
             conta->totalTitulares += numTitulares;

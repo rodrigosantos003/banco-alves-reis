@@ -13,12 +13,13 @@
 
 1642610687 c:\projects\ips- tpsi\afp-project\projeto_joaofernandes_rodrigosantos\conta.h
 
-1642610679 source:c:\projects\ips- tpsi\afp-project\projeto_joaofernandes_rodrigosantos\conta.c
+1642692031 source:c:\projects\ips- tpsi\afp-project\projeto_joaofernandes_rodrigosantos\conta.c
 	<stdio.h>
 	<stdlib.h>
 	<locale.h>
 	<string.h>
 	<time.h>
+	<ctype.h>
 	"conta.h"
 	"gestao.h"
 	"movimentacoes.h"
@@ -50,7 +51,7 @@
 	"gestao.h"
 	"movimentacoes.h"
 
-1642601982 source:c:\projects\ips- tpsi\afp-project\projeto_joaofernandes_rodrigosantos\gestao.c
+1642611017 source:c:\projects\ips- tpsi\afp-project\projeto_joaofernandes_rodrigosantos\gestao.c
 	<stdio.h>
 	<stdlib.h>
 	<locale.h>
