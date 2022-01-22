@@ -145,3 +145,23 @@ void guardarContas(TipoConta contas[], int numAtualContas)
 
     printf("\nContas guardadas com sucesso!\n");
 }
+
+void eliminarDados(TipoConta *contas[], int *numAtualContas){
+    FILE *ficheiroContas;
+
+    ficheiroContas = fopen("contas.txt", "w");
+
+    if(ficheiroContas == NULL){
+        printf("\nERRO: Ocorreu um erro ao abrir o ficheiro!\n");
+        exit(1);
+    }
+
+    fprintf(ficheiroContas, "%s", "");
+
+    memset(contas, 0, 100*sizeof(TipoConta));
+    numAtualContas = 0;
+
+    fclose(ficheiroContas);
+
+    printf("\nDados eliminados com sucesso!\n");
+}

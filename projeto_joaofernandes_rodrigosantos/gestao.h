@@ -7,5 +7,6 @@ void listarTodasContas(TipoConta contas[], int numAtualContas);
 void listarContasCliente(TipoConta contas[], int numAtualContas);
 int aprovarTransacao(TipoConta *conta);
 void guardarContas(TipoConta contas[], int numAtualContas);
+void eliminarDados(TipoConta *contas[], int *numAtualContas);
 
 #endif // GESTAO_H_INCLUDED

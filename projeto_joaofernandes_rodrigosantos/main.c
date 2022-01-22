@@ -2,12 +2,13 @@
     @name: Banco Alves dos Reis
     @description: Porgrama de gestão bancária
     @authors: João Fernandes & Rodrigo Santos
-    @last_modified: 2022-01-20
+    @last_modified: 2022-01-22
 */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
+#include <string.h>
 
 #include "conta.h"
 #include "gestao.h"
@@ -55,7 +56,9 @@ void mostrarMenu(int numAtualContas, float totalFundos)
     printf("7. Editar a informação de uma conta\n");
     printf("8. Eliminar uma conta\n");
     printf("9. Gravar listagem de contas para um ficheiro de texto\n");
-    printf("10. Carregar listagem de contas\n");
+    printf("10. Apagar todos os dados\n");
+    printf("11. Ativar 'guardar automaticamente'\n");
+    printf("0. Sair do programa\n");
 }
 
 //função que executa as operações do menu (dada a respetiva opção)
@@ -199,7 +202,15 @@ void operacoesMenu(TipoConta contas[], int numAtualContas)
         mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas));
         operacoesMenu(contas, numAtualContas);
         break;
-    case 10: /*saída do programa*/
+    case 10: /*apagar dados*/
+        eliminarDados(&contas, &numAtualContas);
+
+        system("pause");
+
+        mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas));
+        operacoesMenu(contas, numAtualContas);
+        break;
+    case 0: /*saída do programa*/
         printf("Deseja sair do programa (S/N)? ");
         scanf("%c", &sair);
         fflush(stdin);
