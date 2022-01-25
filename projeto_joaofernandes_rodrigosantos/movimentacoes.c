@@ -63,7 +63,7 @@ void levantarDinheiro(TipoConta *conta)
 
     if(montante >= 400)
     {
-        printf("\nAVISO: O montante indicado é consideraddo um movimento suspeito!\n");
+        printf("\nAVISO: O montante indicado é considerado um movimento suspeito!\n");
         printf("Iremos proceder a perguntas de segurança!\n");
 
         aprovacao = aprovarTransacao(conta);
@@ -167,7 +167,7 @@ void transferirDinheiro(TipoConta *contaOrigem, TipoConta *contaDestino)
             {
                 contaOrigem->saldo -= montante;
                 contaDestino->saldo += montante;
-                printf("\nMontante levantado com sucesso (%.2f EUR)!\n", montante);
+                printf("\nMontante transferido com sucesso (%.2f EUR)!\n", montante);
 
                 //chamada da função atualizarHistorico() para atualização do histórico de movimentos
                 atualizarHistorico(contaOrigem, montante, "Envio de dinheiro por transferência");

@@ -42,7 +42,7 @@ int lerNumConta(TipoConta contas[], int numAtualContas)
         return meio;
 
     //senão é escrito no ecrã que a conta não existe e é retornado o valor de "erro" (i.e -1)
-    printf("\nERRO:A conta não existe!\n");
+    printf("\nERRO: A conta não existe!\n");
     return -1;
 }
 
@@ -56,7 +56,7 @@ void abrirConta(TipoConta *conta, int numAtualContas)
     t = time(NULL);
     struct tm tm = *localtime(&t); /*retorna os valores da data local*/
 
-    printf("INTRODUZA OS DADOS DA CONTA:\n");
+    printf("INTRODUZA OS DADOS DA CONTA:\n\n");
 
     //atribuição do número de conta
     conta->numero = numAtualContas + 1;
@@ -160,33 +160,33 @@ void abrirConta(TipoConta *conta, int numAtualContas)
 //função para escrever os detalhes de uma conta
 void imprimirConta(TipoConta conta)
 {
-    printf("----------------\n");
+    printf("\n----------------\n");
 
-    printf("Número: %d\n", conta.numero);
+    printf("Número: %d\n\n", conta.numero);
 
     printf("TITULARES:\n");
     for(int i = 0; i < conta.totalTitulares; i++)
     {
         printf("\t%d ", i+1);
-        printf("| Nome: %-25s ", conta.titulares[i].nome);
-        printf("| NIF: %d\n", conta.titulares[i].nif);
+        printf("| Nome: %-26s", conta.titulares[i].nome);
+        printf(" | NIF: %d\n", conta.titulares[i].nif);
     }
 
     if(conta.modalidade == normal)
-        printf("Modalidade: Normal\n");
+        printf("\nModalidade: Normal\n");
     else
-        printf("Modalidade: Isenta\n");
+        printf("\nModalidade: Isenta\n");
 
-    printf("Saldo: %.2f EUR \n", conta.saldo);
+    printf("\nSaldo:\t%.2f EUR \n", conta.saldo);
 
-    printf("HISTÓRICO (últimos 3 movimentos):\n");
+    printf("\nHISTÓRICO (últimos 3 movimentos):\n");
     for(int i = 0; i < 3; i++)
     {
         printf("\tDescrição: %-25s | ", conta.historico[i].descricao);
         printf("Valor: %.2f\n", conta.historico[i].valor);
     }
 
-    printf("Data de abertura: %02d/%02d/%4d\n", conta.data.dia, conta.data.mes, conta.data.ano);
+    printf("\nData de abertura: %02d/%02d/%4d\n", conta.data.dia, conta.data.mes, conta.data.ano);
 
     printf("----------------\n");
 }

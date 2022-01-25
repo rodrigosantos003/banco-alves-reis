@@ -1,8 +1,8 @@
 /*
     @name: Banco Alves dos Reis
-    @description: Porgrama de gestão bancária
-    @authors: João Fernandes & Rodrigo Santos
-    @last_modified: 2022-01-22
+    @description: Porgrama de gestï¿½o bancï¿½ria
+    @authors: Joï¿½o Fernandes & Rodrigo Santos
+    @last_modified: 2022-01-25
 */
 
 #include <stdio.h>
@@ -16,34 +16,35 @@
 
 #define MAX_CONTAS 100
 
-void mostrarMenu(int numAtualContas, float totalFundos);
-void operacoesMenu(TipoConta contas[], int numAtualContas);
+void mostrarMenu(int numAtualContas, float totalFundos, int autoSave);
+void operacoesMenu(TipoConta contas[], int numAtualContas, int autoSave);
 
 int main()
 {
     setlocale(LC_ALL, "");
 
-    //declaração de variáveis
+    //declaraï¿½ï¿½o de variï¿½veis
     TipoConta contas[MAX_CONTAS];
     int numAtualContas;
-
-    //inicialização das variáveis inteiras a zero
+    int autoSave;
+    //inicializaï¿½ï¿½o das variï¿½veis inteiras a zero
     numAtualContas = 0;
+    autoSave = 0;
 
     system("title BANCO ALVES DOS REIS");
 
-    //chamada das funções mostrarMenu() e operacoesMenu()
-    mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas));
-    operacoesMenu(contas, numAtualContas);
+    printf("%d", autoSave);
+    //chamada das funï¿½ï¿½es mostrarMenu() e operacoesMenu()
+    mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas), autoSave);
+    operacoesMenu(contas, numAtualContas, autoSave);
 
     return 0;
 }
 
-//função que apresenta o menu
-void mostrarMenu(int numAtualContas, float totalFundos)
+//funï¿½ï¿½o que apresenta o menu
+void mostrarMenu(int numAtualContas, float totalFundos, int autoSave)
 {
     system("cls");
-
     printf("BANCO ALVES DOS REIS\n\n");
     printf("Existem %d contas ativas e um total de %.2f EUR em fundos\n\n", numAtualContas, totalFundos);
 
@@ -53,31 +54,34 @@ void mostrarMenu(int numAtualContas, float totalFundos)
     printf("4. Depositar dinheiro numa conta\n");
     printf("5. Levantar dinheiro de uma conta\n");
     printf("6. Transferir dinheiro entre contas\n");
-    printf("7. Editar a informação de uma conta\n");
+    printf("7. Editar a informaï¿½ï¿½o de uma conta\n");
     printf("8. Eliminar uma conta\n");
     printf("9. Gravar listagem de contas para um ficheiro de texto\n");
     printf("10. Apagar todos os dados\n");
+    if(autoSave)
+    printf("11. Desativar 'guardar automaticamente'\n");
+    else
     printf("11. Ativar 'guardar automaticamente'\n");
     printf("0. Sair do programa\n");
 }
 
-//função que executa as operações do menu (dada a respetiva opção)
-void operacoesMenu(TipoConta contas[], int numAtualContas)
+//funï¿½ï¿½o que executa as operaï¿½ï¿½es do menu (dada a respetiva opï¿½ï¿½o)
+void operacoesMenu(TipoConta contas[], int numAtualContas, int autoSave)
 {
     char listagem, sair;
     int opcao, contaOrigem, contaDestino;
 
     opcao = contaOrigem = contaDestino = 0;
 
-    //leitura da opção do menu
-    printf("Escolha uma opcão do menu: ");
+    //leitura da opï¿½ï¿½o do menu
+    printf("Escolha uma opcï¿½o do menu: ");
     scanf("%d", &opcao);
     fflush(stdin);
+    system("cls");
 
-    //verificação da opção e execução das respetivas operações
+    //verificaï¿½ï¿½o da opï¿½ï¿½o e execuï¿½ï¿½o das respetivas operaï¿½ï¿½es
     switch(opcao)
     {
-
     case 1: /*abertura de conta*/
         if(numAtualContas < MAX_CONTAS)
         {
@@ -90,12 +94,15 @@ void operacoesMenu(TipoConta contas[], int numAtualContas)
             numAtualContas++;
         }
         else
-            printf("\nERRO: Não é possível abrir mais contas!\n");
+            printf("\nERRO: Nï¿½o ï¿½ possï¿½vel abrir mais contas!\n");
+
+        if(autoSave) guardarContas(contas, numAtualContas);
 
         system("pause");
 
-        mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas));
-        operacoesMenu(contas, numAtualContas);
+        mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas), autoSave);
+        operacoesMenu(contas, numAtualContas, autoSave);
+
         break;
     case 2: /*listagem de todas as contas*/
         printf("Listar todas as contas registadas (T) ou contas de um determinado cliente (C)? ");
@@ -107,12 +114,12 @@ void operacoesMenu(TipoConta contas[], int numAtualContas)
         else if(listagem == 'C' || listagem == 'c')
             listarContasCliente(contas, numAtualContas);
         else
-            printf("ERRO: Opção inválida!");
+            printf("\nERRO: Opï¿½ï¿½o invï¿½lida!\n");
 
         system("pause");
 
-        mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas));
-        operacoesMenu(contas, numAtualContas);
+        mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas), autoSave);
+        operacoesMenu(contas, numAtualContas, autoSave);
         break;
     case 3: /*consulta dos detalhes de uma conta*/
         contaOrigem = lerNumConta(contas, numAtualContas);
@@ -122,19 +129,21 @@ void operacoesMenu(TipoConta contas[], int numAtualContas)
 
         system("pause");
 
-        mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas));
-        operacoesMenu(contas, numAtualContas);
+        mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas), autoSave);
+        operacoesMenu(contas, numAtualContas, autoSave);
         break;
-    case 4: /*depósito de dinheiro*/
+    case 4: /*depï¿½sito de dinheiro*/
         contaOrigem = lerNumConta(contas, numAtualContas);
 
         if(contaOrigem != -1)
             depositarDinheiro(&contas[contaOrigem]);
 
+        if(autoSave) guardarContas(contas, numAtualContas);
+
         system("pause");
 
-        mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas));
-        operacoesMenu(contas, numAtualContas);
+        mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas), autoSave);
+        operacoesMenu(contas, numAtualContas, autoSave);
         break;
     case 5: /*levantamento de dinheiro*/
         contaOrigem = lerNumConta(contas, numAtualContas);
@@ -142,12 +151,14 @@ void operacoesMenu(TipoConta contas[], int numAtualContas)
         if(contaOrigem != -1)
             levantarDinheiro(&contas[contaOrigem]);
 
+        if(autoSave) guardarContas(contas, numAtualContas);
+
         system("pause");
 
-        mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas));
-        operacoesMenu(contas, numAtualContas);
+        mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas), autoSave);
+        operacoesMenu(contas, numAtualContas, autoSave);
         break;
-    case 6: /*transferência de dinheiro*/
+    case 6: /*transferï¿½ncia de dinheiro*/
         printf("CONTA DE ORIGEM\n");
         contaOrigem = lerNumConta(contas, numAtualContas);
 
@@ -159,23 +170,27 @@ void operacoesMenu(TipoConta contas[], int numAtualContas)
             transferirDinheiro(&contas[contaOrigem], &contas[contaDestino]);
         }
 
+        if(autoSave) guardarContas(contas, numAtualContas);
+
         system("pause");
 
-        mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas));
-        operacoesMenu(contas, numAtualContas);
+        mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas), autoSave);
+        operacoesMenu(contas, numAtualContas, autoSave);
         break;
-    case 7: /*edição de informações de conta*/
+    case 7: /*ediï¿½ï¿½o de informaï¿½ï¿½es de conta*/
         contaOrigem = lerNumConta(contas, numAtualContas);
 
         if(contaOrigem != -1)
             editarDetalhesConta(&contas[contaOrigem]);
 
+        if(autoSave) guardarContas(contas, numAtualContas);
+
         system("pause");
 
-        mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas));
-        operacoesMenu(contas, numAtualContas);
+        mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas), autoSave);
+        operacoesMenu(contas, numAtualContas, autoSave);
         break;
-    case 8: /*eliminação de conta*/
+    case 8: /*eliminaï¿½ï¿½o de conta*/
         contaOrigem = lerNumConta(contas, numAtualContas);
 
         if(contaOrigem != -1)
@@ -189,28 +204,49 @@ void operacoesMenu(TipoConta contas[], int numAtualContas)
                 printf("\nERRO: O saldo da conta deve estar a 0!\n");
         }
 
+        if(autoSave) guardarContas(contas, numAtualContas);
+
         system("pause");
 
-        mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas));
-        operacoesMenu(contas, numAtualContas);
+        mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas), autoSave);
+        operacoesMenu(contas, numAtualContas, autoSave);
         break;
     case 9: /*guardar contas em ficheiro*/
         guardarContas(contas, numAtualContas);
 
+        if(autoSave) guardarContas(contas, numAtualContas);
+
         system("pause");
 
-        mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas));
-        operacoesMenu(contas, numAtualContas);
+        mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas), autoSave);
+        operacoesMenu(contas, numAtualContas, autoSave);
         break;
     case 10: /*apagar dados*/
         eliminarDados(&contas, &numAtualContas);
 
         system("pause");
 
-        mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas));
-        operacoesMenu(contas, numAtualContas);
+        mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas), autoSave);
+        operacoesMenu(contas, numAtualContas, autoSave);
         break;
-    case 0: /*saída do programa*/
+    case 11: /*ativar ou desativar guardar automaticamente*/
+        switch(autoSave){
+        case 1:
+            printf("Guardar automaticamente desativado!\n");
+            autoSave = 0;
+            break;
+
+        case 0:
+            printf("Guardar automaticamente ativado!\n");
+            autoSave = 1;
+            break;
+        }
+
+        system("pause");
+
+        mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas), autoSave);
+        operacoesMenu(contas, numAtualContas, autoSave);
+    case 0: /*saï¿½da do programa*/
         printf("Deseja sair do programa (S/N)? ");
         scanf("%c", &sair);
         fflush(stdin);
@@ -219,21 +255,21 @@ void operacoesMenu(TipoConta contas[], int numAtualContas)
             exit(0);
         else if(sair == 'n' || sair == 'N')
         {
-            mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas));
-            operacoesMenu(contas, numAtualContas);
+            mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas), autoSave);
+            operacoesMenu(contas, numAtualContas, autoSave);
         }
         else
         {
-            printf("\nERRO: Resposta inválida!\n");
+            printf("\nERRO: Resposta invï¿½lida!\n");
 
             system("pause");
 
-            mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas));
-            operacoesMenu(contas, numAtualContas);
+            mostrarMenu(numAtualContas, totalFundos(contas, numAtualContas), autoSave);
+            operacoesMenu(contas, numAtualContas, autoSave);
         }
         break;
-    default: /*opção do menu não existente*/
-        printf("\nERRO: A opção escolhida não existe!\n");
-        operacoesMenu(contas, numAtualContas);
+    default: /*opï¿½ï¿½o do menu nï¿½o existente*/
+        printf("\nERRO: A opï¿½ï¿½o escolhida nï¿½o existe!\n");
+        operacoesMenu(contas, numAtualContas, autoSave);
     }
 }

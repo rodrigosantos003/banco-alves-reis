@@ -3,7 +3,7 @@
 	<stdio.h>
 	<stdlib.h>
 
-1642863445 source:c:\projects\ips- tpsi\afp-project\projeto_joaofernandes_rodrigosantos\main.c
+1643143159 source:c:\projects\ips- tpsi\afp-project\projeto_joaofernandes_rodrigosantos\main.c
 	<stdio.h>
 	<stdlib.h>
 	<locale.h>
@@ -14,7 +14,7 @@
 
 1642699702 c:\projects\ips- tpsi\afp-project\projeto_joaofernandes_rodrigosantos\conta.h
 
-1642846629 source:c:\projects\ips- tpsi\afp-project\projeto_joaofernandes_rodrigosantos\conta.c
+1643140292 source:c:\projects\ips- tpsi\afp-project\projeto_joaofernandes_rodrigosantos\conta.c
 	<stdio.h>
 	<stdlib.h>
 	<locale.h>
@@ -43,7 +43,7 @@
 
 1642431848 c:\projects\ips- tpsi\afp-project\projeto_joaofernandes_rodrigosantos\movimentacoes.h
 
-1642604071 source:c:\projects\ips- tpsi\afp-project\projeto_joaofernandes_rodrigosantos\movimentacoes.c
+1643142985 source:c:\projects\ips- tpsi\afp-project\projeto_joaofernandes_rodrigosantos\movimentacoes.c
 	<stdio.h>
 	<stdlib.h>
 	<locale.h>
@@ -52,7 +52,7 @@
 	"gestao.h"
 	"movimentacoes.h"
 
-1642863781 source:c:\projects\ips- tpsi\afp-project\projeto_joaofernandes_rodrigosantos\gestao.c
+1643143609 source:c:\projects\ips- tpsi\afp-project\projeto_joaofernandes_rodrigosantos\gestao.c
 	<stdio.h>
 	<stdlib.h>
 	<locale.h>
@@ -62,4 +62,48 @@
 	"movimentacoes.h"
 
 1642863476 c:\projects\ips- tpsi\afp-project\projeto_joaofernandes_rodrigosantos\gestao.h
+
+1643140292 source:c:\users\ender\desktop\projeto_joãofernandes_202100718_rodrigosantos_202100722\projeto_joaofernandes_rodrigosantos\conta.c
+	<stdio.h>
+	<stdlib.h>
+	<locale.h>
+	<string.h>
+	<time.h>
+	<ctype.h>
+	"conta.h"
+	"gestao.h"
+	"movimentacoes.h"
+
+1642699702 c:\users\ender\desktop\projeto_joãofernandes_202100718_rodrigosantos_202100722\projeto_joaofernandes_rodrigosantos\conta.h
+
+1642863476 c:\users\ender\desktop\projeto_joãofernandes_202100718_rodrigosantos_202100722\projeto_joaofernandes_rodrigosantos\gestao.h
+
+1642431848 c:\users\ender\desktop\projeto_joãofernandes_202100718_rodrigosantos_202100722\projeto_joaofernandes_rodrigosantos\movimentacoes.h
+
+1643143609 source:c:\users\ender\desktop\projeto_joãofernandes_202100718_rodrigosantos_202100722\projeto_joaofernandes_rodrigosantos\gestao.c
+	<stdio.h>
+	<stdlib.h>
+	<locale.h>
+	<string.h>
+	"conta.h"
+	"gestao.h"
+	"movimentacoes.h"
+
+1643142985 source:c:\users\ender\desktop\projeto_joãofernandes_202100718_rodrigosantos_202100722\projeto_joaofernandes_rodrigosantos\movimentacoes.c
+	<stdio.h>
+	<stdlib.h>
+	<locale.h>
+	<string.h>
+	"conta.h"
+	"gestao.h"
+	"movimentacoes.h"
+
+1643143159 source:c:\users\ender\desktop\projeto_joãofernandes_202100718_rodrigosantos_202100722\projeto_joaofernandes_rodrigosantos\main.c
+	<stdio.h>
+	<stdlib.h>
+	<locale.h>
+	<string.h>
+	"conta.h"
+	"gestao.h"
+	"movimentacoes.h"
 

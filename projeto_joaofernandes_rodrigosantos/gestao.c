@@ -143,11 +143,18 @@ void guardarContas(TipoConta contas[], int numAtualContas)
 
     fclose(ficheiroContas);
 
-    printf("\nContas guardadas com sucesso!\n");
+    printf("Contas guardadas com sucesso!\n\n");
 }
 
 void eliminarDados(TipoConta *contas[], int *numAtualContas){
     FILE *ficheiroContas;
+
+    for(int i = 0; i < *numAtualContas; i++){
+        if(contas[i]->saldo > 0){
+            printf("\nERRO: Existem contas com saldo maior que 0!\n\n");
+            return;
+        }
+    }
 
     ficheiroContas = fopen("contas.txt", "w");
 
