@@ -208,6 +208,7 @@ void editarDetalhesConta(TipoConta *conta)
     {
         do
         {
+            //leitura do novo tipo de conta
             printf("Novo tipo de conta (Normal:0 / Isenta:1) > ");
             scanf("%u", &conta->modalidade);
             fflush(stdin);
@@ -230,6 +231,7 @@ void editarDetalhesConta(TipoConta *conta)
 
         if(conta->totalTitulares + numTitulares <= 5)
         {
+            //leitura dos novos titulares
             for(int i = conta->totalTitulares; i < conta->totalTitulares + numTitulares; i++)
             {
                 printf("TITULAR %d\n", i+1);
@@ -285,6 +287,7 @@ void editarDetalhesConta(TipoConta *conta)
     }
 }
 
+//função para eliminar uma conta
 void eliminarConta(TipoConta contas[], int numAtualContas, int indiceApagar)
 {
     for(int i = indiceApagar; i < numAtualContas; i++)

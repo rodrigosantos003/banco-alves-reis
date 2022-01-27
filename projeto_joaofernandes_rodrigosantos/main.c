@@ -2,7 +2,7 @@
     @name: Banco Alves dos Reis
     @description: Porgrama de gestão bancária
     @authors: João Fernandes & Rodrigo Santos
-    @last_modified: 2022-01-26
+    @last_modified: 2022-01-27
 */
 
 #include <stdio.h>
@@ -88,9 +88,7 @@ void operacoesMenu(TipoConta contas[], int numAtualContas, int autoSave)
         if(numAtualContas < MAX_CONTAS)
         {
             if(numAtualContas+1 == contas[numAtualContas-1].numero)
-            {
                 abrirConta(&contas[numAtualContas], numAtualContas+1);
-            }
             else
                 abrirConta(&contas[numAtualContas], numAtualContas);
 
@@ -142,7 +140,8 @@ void operacoesMenu(TipoConta contas[], int numAtualContas, int autoSave)
         if(contaOrigem != -1)
             depositarDinheiro(&contas[contaOrigem]);
 
-        if(autoSave) guardarContas(contas, numAtualContas);
+        if(autoSave)
+            guardarContas(contas, numAtualContas);
 
         system("pause");
 
@@ -174,7 +173,8 @@ void operacoesMenu(TipoConta contas[], int numAtualContas, int autoSave)
             transferirDinheiro(&contas[contaOrigem], &contas[contaDestino]);
         }
 
-        if(autoSave) guardarContas(contas, numAtualContas);
+        if(autoSave)
+            guardarContas(contas, numAtualContas);
 
         system("pause");
 
@@ -187,7 +187,8 @@ void operacoesMenu(TipoConta contas[], int numAtualContas, int autoSave)
         if(contaOrigem != -1)
             editarDetalhesConta(&contas[contaOrigem]);
 
-        if(autoSave) guardarContas(contas, numAtualContas);
+        if(autoSave)
+            guardarContas(contas, numAtualContas);
 
         system("pause");
 
@@ -208,7 +209,8 @@ void operacoesMenu(TipoConta contas[], int numAtualContas, int autoSave)
                 printf("\nERRO: O saldo da conta deve estar a 0!\n");
         }
 
-        if(autoSave) guardarContas(contas, numAtualContas);
+        if(autoSave)
+            guardarContas(contas, numAtualContas);
 
         system("pause");
 
@@ -218,7 +220,8 @@ void operacoesMenu(TipoConta contas[], int numAtualContas, int autoSave)
     case 9: /*guardar contas em ficheiro*/
         guardarContas(contas, numAtualContas);
 
-        if(autoSave) guardarContas(contas, numAtualContas);
+        if(autoSave)
+            guardarContas(contas, numAtualContas);
 
         system("pause");
 

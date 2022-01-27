@@ -87,6 +87,7 @@ int aprovarTransacao(TipoConta *conta)
             {
                 if(nif == conta->titulares[i].nif)
                 {
+                    //se as respostas estiverem todas corretas, é retornado "sucesso" (i.e 1)
                     return 1;
                 }
             }
@@ -109,6 +110,7 @@ void guardarContas(TipoConta contas[], int numAtualContas)
         exit(1);
     }
 
+    //escrita dos dados no ficheiro
     for(int i = 0; i < numAtualContas; i++)
     {
         fprintf(ficheiroContas, "----------------\n");
@@ -146,11 +148,16 @@ void guardarContas(TipoConta contas[], int numAtualContas)
     printf("Contas guardadas com sucesso!\n\n");
 }
 
-void eliminarDados(TipoConta *contas[], int *numAtualContas){
+//função para eliminar todos os dados
+void eliminarDados(TipoConta *contas[], int *numAtualContas)
+{
     FILE *ficheiroContas;
 
-    for(int i = 0; i < *numAtualContas; i++){
-        if(contas[i]->saldo > 0){
+    for(int i = 0; i < *numAtualContas; i++)
+    {
+        if(contas[i]->saldo > 0)
+        {
+            //se existirem ontas com saldo superior a zero a função é terminada
             printf("\nERRO: Existem contas com saldo maior que 0!\n\n");
             return;
         }
@@ -158,13 +165,16 @@ void eliminarDados(TipoConta *contas[], int *numAtualContas){
 
     ficheiroContas = fopen("contas.txt", "w");
 
-    if(ficheiroContas == NULL){
+    if(ficheiroContas == NULL)
+    {
         printf("\nERRO: Ocorreu um erro ao abrir o ficheiro!\n");
         exit(1);
     }
 
+    //apagar dados do ficheiro
     fprintf(ficheiroContas, "%s", "");
 
+    //eliminar contas do array
     memset(contas, 0, 100*sizeof(TipoConta));
     numAtualContas = 0;
 
