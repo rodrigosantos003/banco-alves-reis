@@ -49,8 +49,7 @@ int lerNumConta(TipoConta contas[], int numAtualContas)
 //função para abertura de conta
 void abrirConta(TipoConta *conta, int numAtualContas)
 {
-    int num, quantidadeDigitos;
-    num = quantidadeDigitos = 0;
+    int quantidadeDigitos;
 
     time_t t;
     t = time(NULL);
@@ -86,20 +85,11 @@ void abrirConta(TipoConta *conta, int numAtualContas)
             scanf("%d", &conta->titulares[i].nif);
             fflush(stdin);
 
-            num = conta->titulares[i].nif;
-            quantidadeDigitos = 0;
-            do
-            {
-                num /= 10;
-                quantidadeDigitos++;
-            }
-            while (num != 0);
-
-            if(quantidadeDigitos != 9)
+            if(conta->titulares[i].nif < 100000000 || conta->titulares[i].nif > 999999999)
                 printf("\nERRO: O NIF deve ter 9 dígitos!\n");
-        }
-        while(quantidadeDigitos != 9);
 
+        }
+        while(conta->titulares[i].nif < 100000000 || conta->titulares[i].nif > 999999999);
 
         do
         {
@@ -114,9 +104,7 @@ void abrirConta(TipoConta *conta, int numAtualContas)
             for(int j = 0; j < strlen(conta->titulares[i].nome); j++)
             {
                 if(isdigit(conta->titulares[i].nome[j]))
-                {
                     quantidadeDigitos++;
-                }
             }
 
             if(quantidadeDigitos != 0)
@@ -196,9 +184,7 @@ void imprimirConta(TipoConta conta)
 void editarDetalhesConta(TipoConta *conta)
 {
     char resposta;
-    int numTitulares, num, quantidadeDigitos;
-
-    numTitulares = num = quantidadeDigitos = 0;
+    int numTitulares, quantidadeDigitos;
 
     printf("Pretende alterar o tipo de conta? (S/N) ");
     scanf("%c", &resposta);
@@ -242,19 +228,11 @@ void editarDetalhesConta(TipoConta *conta)
                     scanf("%d", &conta->titulares[i].nif);
                     fflush(stdin);
 
-                    num = conta->titulares[i].nif;
-                    quantidadeDigitos = 0;
-                    do
-                    {
-                        num /= 10;
-                        quantidadeDigitos++;
-                    }
-                    while (num != 0);
-
-                    if(quantidadeDigitos != 9)
+                    if(conta->titulares[i].nif < 100000000 || conta->titulares[i].nif > 999999999)
                         printf("\nERRO: O NIF deve ter 9 dígitos!\n");
+
                 }
-                while(quantidadeDigitos != 9);
+                while(conta->titulares[i].nif < 100000000 || conta->titulares[i].nif > 999999999);
 
                 do
                 {
@@ -269,9 +247,7 @@ void editarDetalhesConta(TipoConta *conta)
                     for(int j = 0; j < strlen(conta->titulares[i].nome); j++)
                     {
                         if(isdigit(conta->titulares[i].nome[j]))
-                        {
                             quantidadeDigitos++;
-                        }
                     }
 
                     if(quantidadeDigitos != 0)
