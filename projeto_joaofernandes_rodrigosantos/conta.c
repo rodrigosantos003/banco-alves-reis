@@ -86,7 +86,7 @@ void abrirConta(TipoConta *conta, int numAtualContas)
             fflush(stdin);
 
             if(conta->titulares[i].nif < 100000000 || conta->titulares[i].nif > 999999999)
-                printf("\nERRO: O NIF deve ter 9 dígitos!\n");
+                printf("\nERRO: NIF inválido!\n");
 
         }
         while(conta->titulares[i].nif < 100000000 || conta->titulares[i].nif > 999999999);
@@ -204,6 +204,8 @@ void editarDetalhesConta(TipoConta *conta)
         }
         while(conta->modalidade < 0 || conta->modalidade > 1);
     }
+    else if(resposta != 'n' || resposta != 'N')
+        printf("\nERRO: Resposta inválida!\n");
 
     printf("Pretende adicionar titulares? (S/N) ");
     scanf("%c", &resposta);
@@ -229,7 +231,7 @@ void editarDetalhesConta(TipoConta *conta)
                     fflush(stdin);
 
                     if(conta->titulares[i].nif < 100000000 || conta->titulares[i].nif > 999999999)
-                        printf("\nERRO: O NIF deve ter 9 dígitos!\n");
+                        printf("\nERRO: NIF inválido!\n");
 
                 }
                 while(conta->titulares[i].nif < 100000000 || conta->titulares[i].nif > 999999999);
@@ -261,6 +263,8 @@ void editarDetalhesConta(TipoConta *conta)
         else
             printf("\nERRO: O número de titulares ultrapassa o limite!\n");
     }
+    else if(resposta != 'n' || resposta != 'N')
+        printf("\nERRO: Resposta inválida!\n");
 }
 
 //função para eliminar uma conta
